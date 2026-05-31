@@ -7,12 +7,12 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi.security import OAuth2PasswordRequestForm
 
-auth_router = APIRouter(prefix="/auth", tags=["Authentication and Registration"])
+auth_router = APIRouter(prefix="api/v1/auth", tags=["Authentication and Registration"])
 
 
-@auth_router.post("/signup", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
+@auth_router.post("/register", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
 async def signup(user: UserCreate, session: AsyncSession = Depends(get_async_session)):
-
+    """Handles User Registration"""
     stmt = select(UserInDb).where(UserInDb.email==user.email)
     exists = await session.execute(stmt)
     results = exists.scalar_one_or_none()
@@ -74,7 +74,10 @@ async def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()], sess
             headers={"WWW-Authenticate": "Bearer"}
         )
     
-    token_payload = {"sub": user.user_id}
+    token_payload = {
+        "sub": str(user.user_id),
+        "role": user.role
+        }
 
     token = create_access_token(token_payload)
 
