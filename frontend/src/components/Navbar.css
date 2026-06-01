@@ -1,0 +1,33 @@
+.navbar {
+    border-bottom: 1px solid #0000001c;
+}
+.nav {
+    display: flex;
+    margin: 1rem 14rem 1rem 14rem;
+    justify-content: space-between;
+    align-items: center;
+}
+.logo {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+.nav-links {
+    display: flex;
+    align-items: center;
+}
+.nav-links li {
+    font-size: 0.9rem;
+    margin-left: 1rem;
+    list-style: none;
+    font-weight: 600;
+}
+.nav-links li > button {
+    background-color: #2b68eb;
+    font-size: 0.825rem;
+    font-weight: 600;
+    color: #fff;
+    width: 70px;
+    height: 30px;
+    border-radius: 9px;
+    border: none;
+}
