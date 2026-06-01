@@ -1,5 +1,6 @@
 import Hero from '../components/Hero'
 import Navbar from '../components/Navbar'
+import Talents from '../components/Talents'
 import './Home.css'
 
 function Home() {
@@ -7,6 +8,7 @@ function Home() {
     <>
         <Navbar />
         <Hero />
+        <Talents />
     </>
   )
 }
