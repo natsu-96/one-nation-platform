@@ -1,5 +1,6 @@
 import Hero from '../components/Hero'
 import Navbar from '../components/Navbar'
+import Quiz from '../components/Quiz'
 import Talents from '../components/Talents'
 import Votes from '../components/Votes'
 import './Home.css'
@@ -11,6 +12,7 @@ function Home() {
         <Hero />
         <Talents />
         <Votes />
+        <Quiz />
     </>
   )
 }
