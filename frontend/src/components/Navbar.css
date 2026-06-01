@@ -1,6 +1,9 @@
 .navbar {
     border-bottom: 1px solid #0000001c;
     position: sticky;
+    top: 0;
+    background-color: #fff;
+    z-index: 1000;
 }
 .nav {
     display: flex;

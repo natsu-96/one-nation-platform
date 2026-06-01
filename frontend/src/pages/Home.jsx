@@ -1,4 +1,5 @@
 import Hero from '../components/Hero'
+import Icons from '../components/Icons'
 import Navbar from '../components/Navbar'
 import Quiz from '../components/Quiz'
 import Talents from '../components/Talents'
@@ -13,6 +14,7 @@ function Home() {
         <Talents />
         <Votes />
         <Quiz />
+        <Icons />
     </>
   )
 }
