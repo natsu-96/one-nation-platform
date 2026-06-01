@@ -1,0 +1,35 @@
+.cta {
+    background-color: #0C641B;
+    color: #fff;
+}
+.cta-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 4rem 14rem;
+}
+.cta-content h2 {
+    font-size: 2.5rem;
+    margin: 0;
+    margin-bottom: 1.2rem;
+}
+.cta-content p {
+    font-size: 1.1rem;
+    color: #ffffffde;
+    text-align: center;
+    max-width: 650px;
+    margin: 0;
+    margin-bottom: 2rem;
+}
+.cta-btns {
+    display: flex;
+    gap: 2rem;
+}
+.cta-btns button {
+    padding: 12px 32px;
+    background-color: #fff;
+    border: 1px solid #9c9c9c60;
+    border-radius: 9px;
+    font-weight: 600;
+    color: #000;
+}
