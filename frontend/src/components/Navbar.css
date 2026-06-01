@@ -1,5 +1,6 @@
 .navbar {
     border-bottom: 1px solid #0000001c;
+    position: sticky;
 }
 .nav {
     display: flex;

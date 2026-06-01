@@ -1,6 +1,7 @@
 import Hero from '../components/Hero'
 import Navbar from '../components/Navbar'
 import Talents from '../components/Talents'
+import Votes from '../components/Votes'
 import './Home.css'
 
 function Home() {
@@ -9,6 +10,7 @@ function Home() {
         <Navbar />
         <Hero />
         <Talents />
+        <Votes />
     </>
   )
 }
