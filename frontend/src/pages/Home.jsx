@@ -1,4 +1,5 @@
 import CTA from '../components/CTA'
+import Footer from '../components/Footer'
 import Hero from '../components/Hero'
 import Icons from '../components/Icons'
 import Navbar from '../components/Navbar'
@@ -17,6 +18,7 @@ function Home() {
         <Quiz />
         <Icons />
         <CTA />
+        <Footer />
     </>
   )
 }
