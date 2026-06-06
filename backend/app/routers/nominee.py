@@ -55,25 +55,19 @@ async def vote_for_nominee(
 ):
     """Increments public vote totals for an approved compendium icon."""
     
-    # 1. Look up nominee and verify they are approved and live
-    nominee_stmt = select(Nominee).where(Nominee.id == nominee_id).where(Nominee.is_featured== True)
+    nominee_stmt = select(Nominee).where(Nominee.id == nominee_id).where(Nominee.is_featured == True)
     nominee_exec = await db.execute(nominee_stmt)
     nominee = nominee_exec.scalar_one_or_none()
 
     if not nominee:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail="Nominee profile not found."
-        )
-    if not nominee.is_approved:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="This nominee profile is pending admin moderation review and cannot accept votes yet."
+            detail="Nominee profile not found or it is pending admin moderation review."
         )
 
     # 2. Check for Duplicate Votes by this specific user
     vote_check_stmt = select(CompendiumVotes).where(
-        CompendiumVotes.user_id == current_user.id,
+        CompendiumVotes.user_id == current_user.user_id,
         CompendiumVotes.nominee_id == nominee_id
     )
     vote_check_exec = await db.execute(vote_check_stmt)
@@ -83,12 +77,11 @@ async def vote_for_nominee(
             detail="You have already cast a ballot for this national icon record."
         )
 
-    # 3. Transaction Block: Log the receipt and increment our database row property
+    # 3. Transaction Block
     try:
         vote_receipt = CompendiumVotes(user_id=current_user.id, nominee_id=nominee_id)
         db.add(vote_receipt)
 
-        # Atomic structural cache mutation assignment
         nominee.votes_count = nominee.votes_count + 1
         db.add(nominee)
 

@@ -41,7 +41,7 @@ async def get_session_questions(
     current_user: CurrentUser = Depends(get_current_user)
 ):
     """Sends a payload of questions to the frontend"""
-    session_stmt = select(QuizSession).where(QuizSession.id == id).where(QuizSession.is_active==True)
+    session_stmt = select(QuizSession).where(QuizSession.id == quiz_session_id).where(QuizSession.is_active==True)
     session_result = await db.execute(session_stmt)
     active_session = session_result.scalar_one_or_none()
 
@@ -74,7 +74,11 @@ async def submit_quiz_score(
     current_user: CurrentUser = Depends(get_current_user)
     ):
     """Securely sends the payload with the user's answers"""
-    submitted_question_ids = [item.question_id for item in payload.answers]
+    answers = payload.get("answers", [])
+    quiz_session_id = payload.get("quiz_session_id")
+    
+    submitted_question_ids = [item.get("question_id") for item in answers if item.get("question_id")]
+    
     stmt = select(QuizQuestion).where(QuizQuestion.id.in_(submitted_question_ids))
     result = await db.execute(stmt)
     answer_key_map = {q.id: q for q in result.scalars().all()}
@@ -83,24 +87,24 @@ async def submit_quiz_score(
     BASE_POINTS = 100
     TOTAL_TIME_ALLOWED = 10.0
 
-    # 2. Calculate time-decay scores for correct answers
-    for item in payload.answers:
-        question = answer_key_map.get(item.question_id)
+    for item in answers:
+        q_id = item.get("question_id")
+        chosen_option = item.get("chosen_option", "")
+        time_remaining = item.get("time_remaining", 0.0)
+        
+        question = answer_key_map.get(q_id)
         if not question:
             continue
 
-        if item.chosen_option.upper() == question.correct_option.upper():
-            # Safeguard boundary to prevent raw payload tampering
-            safe_time = min(max(item.time_remaining, 0.0), TOTAL_TIME_ALLOWED)
-            
+        if chosen_option.upper() == question.correct_option.upper():
+            safe_time = min(max(time_remaining, 0.0), TOTAL_TIME_ALLOWED)
             time_weight = safe_time / TOTAL_TIME_ALLOWED
             earned_points = int(BASE_POINTS * time_weight)
             total_calculated_score += earned_points
 
-    # 3. Log the record into the user score history
     score_receipt = QuizScore(
         user_id=current_user.id,
-        quiz_session_id=payload.quiz_session_id,
+        quiz_session_id=quiz_session_id,
         score=total_calculated_score
     )
     
