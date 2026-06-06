@@ -1,0 +1,100 @@
+/* Card Box Container */
+.vote-card {
+  border: 1px solid #cfcfcf;
+  border-radius: 16px;
+  overflow: hidden; /* Stops child background colors from breaking the rounded corners */
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  height: 320px; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Subtle lift effect on hover */
+.vote-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(26, 83, 43, 0.05);
+}
+
+/* Top Area: Empty White Space */
+.card-top {
+  position: relative;
+  flex: 1; 
+  padding: 16px;
+}
+
+/* "Most Voted" Badge text styling */
+.badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font-size: 14px;
+  color: #8c968f;
+  font-weight: 500;
+}
+
+/* Bottom Area: Light Green Panels */
+.card-bottom {
+  background-color: #edf5ea;
+  border-top: 1px solid #e2ece6;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between; /* Pushes text details left, button right */
+  align-items: center; /* Vertically aligns text and button items */
+}
+
+/* Text Containers & Hierarchy */
+.card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.candidate-name {
+  margin: 0;
+  color: #226c37; /* Dark Forest Green */
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.candidate-category {
+  margin: 0;
+  color: #6fa07b;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.vote-count {
+  margin: 4px 0 0 0;
+  color: #226c37;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* --- BUTTON TARGETS --- */
+
+/* Base configuration for "Vote!" button */
+.vote-btn {
+  background-color: #c5a634; /* Vibrant Gold */
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.vote-btn:hover {
+  background-color: #b59022; 
+}
+
+/* Altered configuration when the .voted class is attached */
+.vote-btn.voted {
+  background-color: #e4e4c2; /* Muted yellow/gold background */
+  color: #c5a634;            /* Sharp gold font */
+  border: 1px solid #c5a634;
+  cursor: not-allowed;       /* Changes user cursor to indicate a disabled field */
+}

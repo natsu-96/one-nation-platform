@@ -1,4 +1,5 @@
 import Navbar from "../components/Navbar"
+import VotingGrid from "../components/votingGrid"
 import "./Voting.css"
 
 function Voting() {
@@ -38,7 +39,7 @@ function Voting() {
                             </div>
                         </div>
                         <div className="voting-grid">
-                            <span>fro</span>
+                            <VotingGrid />
                         </div>
                     </div>
                     <div className="voting-right">
