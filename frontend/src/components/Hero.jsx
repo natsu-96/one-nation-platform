@@ -13,9 +13,9 @@ function Hero() {
                 <span>Showcase your talent, vote for the best, and celebrate Nigerian culture on Africa's biggest digital platform.</span>
             </div>
             <div className="hero-btns">
-                <button> <Link to="/upload">Upload Talent</Link></button>
-                <button> <Link to="/vote">Vote Now</Link></button>
-                <button> <Link to="/quiz">Join Quiz</Link></button>
+                <Link to="/upload"><button> Upload Talent</button></Link>
+                <Link to="/voting"><button>Vote Now</button></Link>
+                <Link to="/quiz"><button>Join Quiz</button></Link>
             </div>
         </div>
   )
