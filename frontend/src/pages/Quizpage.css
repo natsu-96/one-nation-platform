@@ -1,13 +1,13 @@
-.voting {
+.quiz-zone-page {
     display: flex;
     flex-direction: column;
 }
 
-.voting-top {
+.quizzing-top {
     margin-left: 2.625rem;
 }
 
-.voting-top h2 {
+.quizzing-top h2 {
     margin: 0;
     font-size: 2.5rem;
     font-weight: 800;
@@ -15,21 +15,21 @@
     color: #226c37;
 }
 
-.voting-top span {
+.quizzing-top span {
     color: #c5a634;
 }
 
-.voting-top p {
+.quizzing-top p {
     margin: 0;
     color: #6b6b6b;
 }
 
-.voting-categories {
+.quizzing-categories {
     display: flex;
     border-bottom: 1px solid #e2ece6; /* Softened slightly to match your UI layout lines better */
 }
 
-.voting-categories li {
+.quizzing-categories li {
     list-style: none;
     max-width: 153px;
     padding: 12px 24px;
@@ -40,38 +40,39 @@
 }
 
 /* Added hover feedback for better user experience */
-.voting-categories li:hover {
+.quizzing-categories li:hover {
     color: #c5a634;
 }
 
 /* 👇 DYNAMIC ACTIVE STATE SELECTOR */
 /* Whichever tab matches selectedCategory gets this yellow highlight styling */
-.voting-categories li.active-category {
+.quizzing-categories li.active-category {
     color: #c5a634;
     border-bottom: 2px solid #c5a634;
     font-weight: 600; /* Subtle emphasis on the selected text */
 }
 
-.voting-body {
+.quizzing-body {
     display: flex;
     flex-direction: row;
 }
 
-.voting-left {
+.quizzing-left {
     display: flex;
     flex-direction: column;
     max-width: 1278px;
     width: 100%;
+    padding-right: 40px;
 }
 
-.voting-filter {
+.quizzing-filter {
     display: flex;
     gap: 52.4rem;
     margin-left: 3.43rem;
     margin-top: 1.125rem;
 }
 
-.voting-filter-left button {
+.quizzing-filter-left button {
     padding: 5px 11px;
     margin-right: 0.625rem;
     border-radius: 3px;
@@ -80,13 +81,13 @@
     color: #757575;
 }
 
-.voting-filter-left button:first-child {
+.quizzing-filter-left button:first-child {
     border: 1px solid #c5a634;
     background-color: #dfce90;
     color: #c5a634;
 }
 
-.voting-filter-right button {
+.quizzing-filter-right button {
     padding: 5px 11px;
     border-radius: 3px;
     border: 1px solid #757575;
@@ -94,7 +95,7 @@
     color: #757575;
 }
 
-.voting-right {
+.quizzing-right {
     max-width: 234px;
     width: 100%;
 }

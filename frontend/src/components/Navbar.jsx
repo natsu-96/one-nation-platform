@@ -7,7 +7,7 @@ function Navbar() {
         <div className="navbar">
             <div className="nav">
                 <div className="logo-section">
-                    <div className="logo">Nigeria Celebrates</div>
+                    <div className="logo">NC</div>
                 </div>
                 <div className="nav-links">
                     <Link to="/talent"><li>Talent Zone</li></Link>

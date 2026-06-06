@@ -7,13 +7,16 @@
 }
 .nav {
     display: flex;
-    margin: 1rem 14rem 1rem 14rem;
+    margin: 1rem;
     justify-content: space-between;
     align-items: center;
 }
 .logo {
-    font-size: 1.5rem;
+    font-size: 3rem;
     font-weight: 600;
+    color: #226c37;
+    line-height: 99.5%;
+    letter-spacing: -27%;
 }
 .nav-links {
     display: flex;

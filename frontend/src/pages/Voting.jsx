@@ -150,12 +150,12 @@ function Voting() {
                     <div className="voting-body">
                         <div className="voting-left">
                             <div className="voting-filter">
-                                <div className="filter-left">
+                                <div className="voting-filter-left">
                                     <button>Trending</button>
                                     <button>Newest</button>
                                     <button>Most Voted</button>
                                 </div>
-                                <div className="filter-right">
+                                <div className="voting-filter-right">
                                     <button>This Week</button>
                                 </div>
                             </div>
