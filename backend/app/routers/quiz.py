@@ -4,7 +4,6 @@ from schemas.quiz import (
     QuizScore, 
     QuizSession,
     ClientQuestionResponse
-
 )
 from services.db import get_async_session
 from services.auth import get_current_user

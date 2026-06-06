@@ -1,4 +1,5 @@
 from enum import StrEnum
+from uuid import UUID, uuid4
 from sqlmodel import SQLModel, Field, Relationship
 from datetime import datetime, timezone
 from typing import Optional, List
@@ -36,7 +37,7 @@ class ClientQuestionResponse(BaseModel):
 class QuizSession(SQLModel, table=True):
     __tablename__ = "quizsession"
     
-    id: Optional[int] = Field(default=None, primary_key=True)
+    id: UUID = Field(default_factory=uuid4, primary_key=True)
     category: QuizCategories = Field(index=True)
     title: str  
     is_active: bool = Field(default=True, index=True)  
@@ -55,7 +56,7 @@ class QuizSession(SQLModel, table=True):
 class QuizQuestion(SQLModel, table=True):
     __tablename__ = "questions"
     
-    id: Optional[int] = Field(default=None, primary_key=True)
+    id: UUID = Field(default_factory=uuid4, primary_key=True)
     quiz_session_id: int = Field(foreign_key="quizsession.id")
     question_text: str
     
