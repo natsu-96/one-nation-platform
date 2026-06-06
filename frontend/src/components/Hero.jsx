@@ -1,4 +1,5 @@
 import './Hero.css'
+import { Link } from "react-router-dom";
 
 function Hero() {
   return (
@@ -12,9 +13,9 @@ function Hero() {
                 <span>Showcase your talent, vote for the best, and celebrate Nigerian culture on Africa's biggest digital platform.</span>
             </div>
             <div className="hero-btns">
-                <button>Upload Talent</button>
-                <button>Vote Now</button>
-                <button>Join Quiz</button>
+                <button> <Link to="/upload">Upload Talent</Link></button>
+                <button> <Link to="/vote">Vote Now</Link></button>
+                <button> <Link to="/quiz">Join Quiz</Link></button>
             </div>
         </div>
   )
