@@ -2,9 +2,11 @@
     display: flex;
     flex-direction: column;
 }
+
 .voting-top {
     margin-left: 2.625rem;
 }
+
 .voting-top h2 {
     margin: 0;
     font-size: 2.5rem;
@@ -12,68 +14,87 @@
     letter-spacing: -9%;
     color: #226c37;
 }
+
 .voting-top span {
     color: #c5a634;
 }
+
 .voting-top p {
     margin: 0;
     color: #6b6b6b;
 }
+
 .voting-categories {
     display: flex;
-    border-bottom: 1px solid #6b6b6b;
+    border-bottom: 1px solid #e2ece6; /* Softened slightly to match your UI layout lines better */
 }
+
 .voting-categories li {
     list-style: none;
     max-width: 153px;
     padding: 12px 24px;
     font-size: 1rem;
     line-height: 91.6%;
-    color: #6b6b6b;
+    color: #6b6b6b; /* Unselected tabs stay grey */
+    transition: color 0.2s ease, border-color 0.2s ease;
 }
-.voting-categories li:first-child {
+
+/* Added hover feedback for better user experience */
+.voting-categories li:hover {
+    color: #c5a634;
+}
+
+/* 👇 DYNAMIC ACTIVE STATE SELECTOR */
+/* Whichever tab matches selectedCategory gets this yellow highlight styling */
+.voting-categories li.active-category {
     color: #c5a634;
     border-bottom: 2px solid #c5a634;
+    font-weight: 600; /* Subtle emphasis on the selected text */
 }
+
 .voting-body {
     display: flex;
     flex-direction: row;
-
 }
+
 .voting-left {
     display: flex;
     flex-direction: column;
     max-width: 1278px;
     width: 100%;
 }
+
 .voting-filter {
     display: flex;
     gap: 52.4rem;
     margin-left: 3.43rem;
     margin-top: 1.125rem;
 }
-.filter-left  button{
+
+.filter-left button {
     padding: 5px 11px;
     margin-right: 0.625rem;
     border-radius: 3px;
     border: 1px solid #757575;
     background-color: #b3b3b3;
     color: #757575;
-    font-weight: 00;
 }
+
 .filter-left button:first-child {
     border: 1px solid #c5a634;
     background-color: #dfce90;
-    color:#c5a634;
+    color: #c5a634;
 }
-.filter-right  button{
+
+.filter-right button {
     padding: 5px 11px;
     border-radius: 3px;
     border: 1px solid #757575;
     background-color: #b3b3b3;
     color: #757575;
 }
-.voting-right{
+
+.voting-right {
     background-color: aliceblue;
     max-width: 234px;
     width: 100%;

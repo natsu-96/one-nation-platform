@@ -1,0 +1,167 @@
+/* Container Sidebar Layout */
+.sidebar-container {
+  background-color: #cbdad0; /* Muted sage green background from layout */
+  padding: 24px;
+  width: 340px;
+  min-height: 100vh;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* Live Header Badge */
+.live-badge-container {
+  display: flex;
+}
+
+.live-badge {
+  background-color: #f26d7d; /* Neon coral tint */
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 800;
+  padding: 6px 16px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+  border: 1px solid #d45665;
+}
+
+/* Section Headings */
+.section-title {
+  color: #69786f; /* Darker slate gray-green */
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0 0 16px 0;
+  letter-spacing: 0.5px;
+}
+
+/* Leaderboard List Rows */
+.leaderboard-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.leaderboard-row {
+  display: flex;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #b5c7bc; /* Subtle row separator lines */
+}
+
+.rank-number {
+  font-size: 18px;
+  font-weight: 800;
+  color: #cca42b; /* Gold ranks */
+  width: 24px;
+}
+
+/* Gray or lower rank numbers fade out slightly */
+.leaderboard-row:nth-child(n+4) .rank-number {
+  color: #8da094;
+}
+
+.avatar-wrapper {
+  margin: 0 12px;
+}
+
+.avatar-star {
+  background-color: #1a532b; /* Deep green avatar base */
+  color: #cca42b; /* Gold star */
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.player-name {
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 16px;
+  flex: 1;
+}
+
+.player-votes {
+  color: #cca42b;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/* Voting Stats Grid Section */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Clean 2x2 grid setup */
+  gap: 12px;
+}
+
+.stat-card {
+  background-color: #ebf0ec; /* Very soft white-green panels */
+  border-radius: 12px;
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: 800;
+  color: #cca42b; /* Uniform value color assignment */
+}
+
+.stat-value.highlight-gold {
+  color: #cca42b;
+}
+
+.stat-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #b0beb5;
+  letter-spacing: 0.5px;
+}
+
+/* Invite Module Styling */
+.share-box {
+  background-color: #ebf0ec;
+  border-radius: 16px;
+  padding: 16px;
+}
+
+.share-title {
+  color: #1a532b;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0 0 4px 0;
+}
+
+.share-subtitle {
+  color: #70937b;
+  font-size: 12px;
+  line-height: 1.4;
+  margin: 0 0 12px 0;
+}
+
+.share-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.share-btn {
+  background-color: #e5dec9;
+  color: #cca42b;
+  border: 1px solid #cca42b;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  flex: 1;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.share-btn:hover {
+  background-color: #ded6be;
+}
