@@ -2,6 +2,7 @@ import './App.css'
 // 1. Add BrowserRouter to your imports
 import { BrowserRouter, Routes, Route } from "react-router-dom"; 
 import Home from './pages/Home'
+import Voting from './pages/Voting'
 
 function App() {
   return (
@@ -10,7 +11,7 @@ function App() {
       <Routes>
         <Route path='/' element={ <Home /> } />
         {/* <Route path='/upload' element={ <Home /> } /> */}
-        <Route path='/voting' element={ <Home /> } />
+        <Route path='/voting' element={ <Voting /> } />
         {/* <Route path='/quiz' element={ <Home /> } /> */}
       </Routes>
     </BrowserRouter>
