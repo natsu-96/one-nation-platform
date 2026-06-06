@@ -7,7 +7,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi.security import OAuth2PasswordRequestForm
 
-auth_router = APIRouter(prefix="api/v1/auth", tags=["Authentication and Registration"])
+auth_router = APIRouter(prefix="/api/v1/auth", tags=["Authentication and Registration"])
 
 
 @auth_router.post("/register", response_model=UserResponse, status_code=status.HTTP_201_CREATED)

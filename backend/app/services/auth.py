@@ -1,6 +1,7 @@
 import secrets
 import string
 import os
+import uuid
 from passlib.context import CryptContext
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import SecretStr
@@ -21,6 +22,9 @@ pwd_context = CryptContext(schemes=['sha256_crypt'], deprecated="auto")
 class AppSettings(BaseSettings):
     secret_key: SecretStr = os.getenv("SECRET_KEY")
     algorithm: str = "HS256"
+    cloudinary_name: str = os.getenv("CLOUDINARY_NAME")
+    cloudinary_key: str = os.getenv("CLOUDINARY_KEY")
+    api_secret: str = os.getenv("API_SECRET")
 
 
     model_config = SettingsConfigDict(env_file="app/.env", env_file_encoding="utf-8")
@@ -84,7 +88,7 @@ def get_current_user(token: str = Depends(oauth_context)) -> CurrentUser:
     try:
         payload = jwt.decode(token, settings.secret_key.get_secret_value(), settings.algorithm)
         role = payload.get("role")
-        user_id = payload.get("sub")
+        user_id = uuid.UUID(payload.get("sub"))
 
         if user_id is None or role is None:
             raise credentials_exception
@@ -106,7 +110,7 @@ class Require_scope:
         self.required_scope = required_scope
     
     def __call__(self, current_user: UserInDb = Depends(get_current_user)):
-        allowed_scopes = current_user.get(current_user.role, [])
+        allowed_scopes = ROLE_PERMISSIONS.get(current_user.role, [])
 
         if self.required_scope not in allowed_scopes:
             raise HTTPException(
