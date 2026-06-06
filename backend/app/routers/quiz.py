@@ -1,16 +1,13 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from schemas.quiz import (
-    QuizCategories, 
     QuizQuestion, 
     QuizScore, 
-    QuizSession, 
-    UserAnswerItem, 
-    QuizSubmissionPayload, 
+    QuizSession,
     ClientQuestionResponse
 
 )
 from services.db import get_async_session
-from services.auth import Scopes, Require_scope, get_current_user
+from services.auth import get_current_user
 from typing import List
 from sqlalchemy.ext.asyncio import AsyncSession
 from schemas.user import CurrentUser
