@@ -1,10 +1,25 @@
 import './Navbar.css'
-import LoginDrawer from './LoginDrawer';
-import { useState } from 'react';
+import LoginModal from './LoginModal';
+import DashboardDrawer from './DashboardDrawer';
+import { useState, useEffect } from 'react';
+import avatar from '../assets/avatar.png'
 import { Link } from "react-router-dom";
 
 function Navbar() {
   const [loginOpen, setLoginOpen] = useState(false);
+  const [isDashboardOpen, setIsDashboardOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setIsLoggedIn(!!token);
+  }, [loginOpen]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+    setIsDashboardOpen(false);
+  }
 
   return (
     <>
@@ -19,13 +34,24 @@ function Navbar() {
                     <Link to="/quiz"><li>Quiz</li></Link>
                 </div>
                 <div className="signin-btn">
-                    <Link><button onClick={() => setLoginOpen(true)}>Sign In</button></Link>
+                    {isLoggedIn ? (
+                        <div className="nav-avatar-wrapper" onClick={() => setIsDashboardOpen(true)}>
+                            <img src={avatar} alt="Avatar" />
+                        </div>
+                    ) : (
+                        <Link><button onClick={() => setLoginOpen(true)}>Sign In</button></Link>
+                    )}
                 </div>
             </div>
         </div>
-        <LoginDrawer 
+        <LoginModal 
                 isOpen={loginOpen} 
                 onClose={() => setLoginOpen(false)} 
+        />
+        <DashboardDrawer 
+            isOpen={isDashboardOpen} 
+            onClose={() => setIsDashboardOpen(false)} 
+            onLogout={handleLogout}
         />
     </>
   )

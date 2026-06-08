@@ -39,3 +39,23 @@
     border-radius: 9px;
     border: none;
 }
+.nav-avatar-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.nav-avatar-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #008744; /* Clean branding green accent circle border */
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-avatar-icon:hover {
+    transform: scale(1.06);
+    box-shadow: 0 4px 12px rgba(0, 135, 68, 0.2);
+}
