@@ -1,57 +1,80 @@
 import React, { useState, useEffect } from "react";
 import Leaderboard from "../components/Leaderboard";
 import Navbar from "../components/Navbar";
-import QuizGrid from "../components/QuizGrid"; // Assuming you build a parallel grid file
-import "./Quizpage.css"; // Your page styling sheet
+import QuizGrid from "../components/QuizGrid";
+import ActiveQuizPlay from "../pages/ActiveQuiz"; 
+import "./Quizpage.css";
+
+// Import assets needed for the Talent Leaderboard mock data fallbacks
+import image from "../assets/girl.png";
+import avatar from "../assets/avatar.png";
 
 function Quizpage() {
+    // Quiz Catalog States
     const [allQuizzes, setAllQuizzes] = useState([]);
     const [filteredQuizzes, setFilteredQuizzes] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState("ALL ENTRIES");
-    const [loading, setLoading] = useState(true);
+    const [quizzesLoading, setQuizzesLoading] = useState(true);
 
-    const categories = ["HISTORY", "GEOGRAPHY", "ENTERTAINMENT", "SPORTS", "STEM", "ICONS"];
+    // 🌟 Shared Talent Leaderboard States
+    const [leaderboardCandidates, setLeaderboardCandidates] = useState([]);
+    const [leaderboardLoading, setLeaderboardLoading] = useState(true);
 
-    // 1. Fetch live active quiz sessions from backend on mount
+    // Dynamic View Router Simulation State
+    const [activeQuizSession, setActiveQuizSession] = useState(null); 
+
+    const quizCategories = ["HISTORY", "GEOGRAPHY", "ENTERTAINMENT", "SPORTS", "STEM", "ICONS"];
+    const talentCategories = ["Music", "Artwork", "Comedy", "Football", "Fashion", "Logo", "Photo", "Film", "Sports"];
+
+    // 1. Load Quiz Catalog on mount
     useEffect(() => {
-        setLoading(true);
+        setQuizzesLoading(true);
+        loadMockQuizCatalog();
+    }, []);
 
-        // Retrieve the login token your user got when signing in
-        const userToken = localStorage.getItem("token"); 
+    // 2. Fetch Global Talent Leaderboard data on mount (identical to Voting Page)
+    useEffect(() => {
+        setLeaderboardLoading(true);
 
-        fetch("http://localhost:8000/api/v1/quiz/active", {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                // Pass user credentials so your friend's secure backend lets the request through
-                "Authorization": `Bearer ${userToken}` 
-            }
-        })
-            .then((res) => {
-                if (!res.ok) throw new Error("Could not fetch active quizzes");
-                return res.json();
-            })
-            .then((data) => {
-                // Map his data model properties onto your UI visual layout
-                const formattedQuizzes = data.map((item, index) => ({
-                    id: item.quiz_session_id || index + 1, // fallback id mapping
-                    title: item.quiz,                      // maps 'quiz' title text
-                    category: item.category.toUpperCase(), // ensures standard uppercase strings
-                    plays: "14,450 plays",                 // can be static or added to DB schema later
-                    description: "Test your speed and precision knowledge in this real-time arena challenge."
-                }));
-                
-                setAllQuizzes(formattedQuizzes);
-                setFilteredQuizzes(formattedQuizzes);
-                setLoading(false);
+        const formatTalentItem = (item) => ({
+            id: item.id,
+            name: item.name || "Anonymous",
+            category: item.category,
+            votes: item.vote_count, 
+            hasVoted: false,
+            rank: "1", 
+            image: image, 
+            creator: { name: "Anwar", avatar: avatar }, 
+            votersCountString: "1K",
+        });
+
+        // Map talent categories to fetch promises matching your API structure
+        const fetchPromises = talentCategories.map((cat) =>
+            fetch(`http://localhost:8000/api/v1/leaderboard/talent/${cat}?limit=20`)
+                .then((res) => (res.ok ? res.json() : []))
+                .catch(() => [])
+        );
+
+        Promise.all(fetchPromises)
+            .then((results) => {
+                const allEntries = results.flat();
+
+                if (allEntries.length === 0) {
+                    loadTalentMockData();
+                    return;
+                }
+
+                const formattedData = allEntries.map(formatTalentItem);
+                setLeaderboardCandidates(formattedData);
+                setLeaderboardLoading(false);
             })
             .catch((err) => {
-                console.error("Backend unreachable or user unauthorized. Loading mock presets:", err);
-                loadMockQuizCatalog();
+                console.error("Quiz Page Leaderboard fetch failure:", err);
+                loadTalentMockData();
             });
     }, []);
 
-    // 2. Handle Frontend Filtering when clicking Category Tabs
+    // 3. Handle Quiz Filtering
     useEffect(() => {
         if (selectedCategory === "ALL ENTRIES") {
             setFilteredQuizzes(allQuizzes);
@@ -61,7 +84,7 @@ function Quizpage() {
         }
     }, [selectedCategory, allQuizzes]);
 
-    // Safety Fallback Framework to match your design screenshot while backend is connecting
+    // Mock Data Builders
     const loadMockQuizCatalog = () => {
         const mockArray = [
             { id: 1, title: "Slogans of the Nation", category: "GEOGRAPHY", plays: "14,450 plays", description: "Can you guess the state just by its official slogan?" },
@@ -73,70 +96,95 @@ function Quizpage() {
         ];
         setAllQuizzes(mockArray);
         setFilteredQuizzes(mockArray);
-        setLoading(false);
+        setQuizzesLoading(false);
+    };
+
+    const loadTalentMockData = () => {
+        setLeaderboardCandidates([
+            { id: 1, title: "Anwar's Manager", description: "MUSIC", votes: 14450, rank: "1", image: image, creator: { name: "Anwar", avatar: avatar }, votersCountString: "1K" },
+            { id: 2, title: "Bisi's Friend", description: "ARTWORK", votes: 12300, rank: "2", image: image, creator: { name: "Bisi", avatar: avatar }, votersCountString: "921" },
+            { id: 3, title: "Chidi's Sister", description: "COMEDY", votes: 9800,  rank: "3", image: image, creator: { name: "Chidi", avatar: avatar }, votersCountString: "850" },
+            { id: 4, title: "Davido's Manager", description: "FOOTBALL", votes: 8400, rank: "4", image: image, creator: { name: "Davido", avatar: avatar }, votersCountString: "921" },
+            { id: 5, title: "Efe's Mom", description: "FASHION", votes: 5200,  rank: "5", image: image, creator: { name: "Efe", avatar: avatar }, votersCountString: "1K" },
+        ]);
+        setLeaderboardLoading(false);
     };
 
     const handlePlayQuiz = (id) => {
-        console.log(`Starting dynamic quiz interface container for Session reference ID: ${id}`);
-        // This is where you will redirect users to the live active quiz room component later!
+        const selectedQuiz = allQuizzes.find(q => q.id === id);
+        setActiveQuizSession(selectedQuiz);
     };
+
+    const handleExitQuizView = () => {
+        setActiveQuizSession(null);
+    };
+
+    if (activeQuizSession) {
+        return <ActiveQuizPlay quiz={activeQuizSession} onExit={handleExitQuizView} />;
+    }
 
     return (
         <>
             <Navbar />
-            <div className="quiz-zone-page">
-                <div className="container">
-                    <div className="quizzing-top">
-                        <div className="quizzing-header-text">
-                            <h2>NAIJA <span className="gold-text">QUIZ ZONE</span></h2>
-                            <p>Test your knowledge about Nigerian history, geography, music, sports, and more. Compete with thousands of players in real-time.</p>
-                            
-                            {/* Dynamic Filter Navigation Row */}
-                            <div className="quizzing-categories">
-                                <li 
-                                    className={selectedCategory === "ALL ENTRIES" ? "active-category" : ""}
-                                    onClick={() => setSelectedCategory("ALL ENTRIES")}
-                                    style={{ cursor: "pointer" }}
-                                >
-                                    ALL ENTRIES
-                                </li>
-                                {categories.map((cat) => (
+            <div className="container">
+                <div className="quiz-zone-page">
+                    <div className="quizzing-first">
+                        <div className="quizzing-top">
+                            <div className="quizzing-header-text">
+                                <h2>NAIJA <span className="gold-text">QUIZ ZONE</span></h2>
+                                <p>Test your knowledge about Nigerian history, geography, music, sports, and more. Compete with thousands of players in real-time.</p>
+                                
+                                <div className="quizzing-categories">
                                     <li 
-                                        key={cat}
-                                        className={selectedCategory === cat ? "active-category" : ""}
-                                        onClick={() => setSelectedCategory(cat)}
+                                        className={selectedCategory === "ALL ENTRIES" ? "active-category" : ""}
+                                        onClick={() => setSelectedCategory("ALL ENTRIES")}
                                         style={{ cursor: "pointer" }}
                                     >
-                                        {cat}
+                                        ALL ENTRIES
                                     </li>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div className="quizzing-body">
-                        <div className="quizzing-left">
-                            <div className="quizzing-filter">
-                                <div className="quizzing-filter-left">
-                                    <button>Trending</button>
-                                    <button>Newest</button>
+                                    {quizCategories.map((cat) => (
+                                        <li 
+                                            key={cat}
+                                            className={selectedCategory === cat ? "active-category" : ""}
+                                            onClick={() => setSelectedCategory(cat)}
+                                            style={{ cursor: "pointer" }}
+                                        >
+                                            {cat}
+                                        </li>
+                                    ))}
                                 </div>
                             </div>
+                        </div>
+                        <div className="quizzing-body">
                             
-                            <div className="quizzing-grid">
-                                {loading ? (
-                                    <div className="loading-state">Syncing secure connection...</div>
-                                ) : (
-                                    /* Reuse or duplicate your grid mapping setup for Quiz lists */
-                                    <QuizGrid items={filteredQuizzes} onPlay={handlePlayQuiz} />
-                                )}
-                            </div>
+                                <div className="quizzing-filter">
+                                    <div className="quizzing-filter-left">
+                                        <button>Trending</button>
+                                        <button>Newest</button>
+                                    </div>
+                                </div>
+                                <div className="quizzing-grid">
+                                    {quizzesLoading ? (
+                                        <div className="loading-state">Loading active sessions...</div>
+                                    ) : (
+                                        <QuizGrid items={filteredQuizzes} onPlay={handlePlayQuiz} />
+                                    )}
+                                </div>
+                            
                         </div>
-                        
-                        {/* Perfect placement preservation for your shared Live Leaderboard component */}
-                        <div className="quizzing-right">
-                            <Leaderboard />
+                            
                         </div>
+                    <div className="quizzing-leaderboard">
+                        {leaderboardLoading ? (
+                        <div className="loading-state">Syncing Leaderboard...</div>
+                        ) : (
+                            <Leaderboard 
+                                candidates={leaderboardCandidates}
+                                totalEntries={48} 
+                                categoriesCount={11}
+                                votingEndsString="03d 04h"
+                            />
+                        )}
                     </div>
                 </div>
             </div>

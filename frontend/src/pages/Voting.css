@@ -1,6 +1,8 @@
 .voting {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    margin-top: 2.5rem;
+    gap: 2.8rem;
 }
 
 .voting-top {
@@ -16,7 +18,7 @@
 }
 
 .voting-top span {
-    color: #c5a634;
+    color: #000;
 }
 
 .voting-top p {
@@ -34,27 +36,27 @@
     max-width: 153px;
     padding: 12px 24px;
     font-size: 1rem;
-    line-height: 91.6%;
+    line-height: 100%;
     color: #6b6b6b; /* Unselected tabs stay grey */
     transition: color 0.2s ease, border-color 0.2s ease;
 }
 
 /* Added hover feedback for better user experience */
 .voting-categories li:hover {
-    color: #c5a634;
+    color: #226c37;
 }
 
 /* 👇 DYNAMIC ACTIVE STATE SELECTOR */
 /* Whichever tab matches selectedCategory gets this yellow highlight styling */
 .voting-categories li.active-category {
-    color: #c5a634;
-    border-bottom: 2px solid #c5a634;
+    color: #226c37;
+    border-bottom: 2px solid #226c37;
     font-weight: 600; /* Subtle emphasis on the selected text */
 }
 
 .voting-body {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
 
 .voting-left {
@@ -66,34 +68,35 @@
 
 .voting-filter {
     display: flex;
-    gap: 52.4rem;
+    justify-content: space-between;
     margin-left: 3.43rem;
     margin-top: 1.125rem;
+    height: 52px;
 }
-
+.voting-filter-left {
+    /* max-width: 20.25rem; */
+    border: 2px solid #E3E7EB;
+    border-radius: 6px;
+    display: flex;
+}
 .voting-filter-left button {
-    padding: 5px 11px;
-    margin-right: 0.625rem;
-    border-radius: 3px;
-    border: 1px solid #757575;
-    background-color: #b3b3b3;
-    color: #757575;
+    padding: 10px 18px;
+    border: 0;
+    background-color: #E3E7EB;
+    color: #9b9a9a;
+    font-size: 0.85rem;
+    font-weight: 600;
+    height: 3rem;
+    
 }
 
 .voting-filter-left button:first-child {
-    border: 1px solid #c5a634;
-    background-color: #dfce90;
-    color: #c5a634;
+    border: 0;
+    background-color: #fff;
+    color: #000;
+    border-radius: 12px;
+    box-shadow: 0 9px 20px rgba(0, 0, 0, 0.08);
 }
-
-.voting-filter-right button {
-    padding: 5px 11px;
-    border-radius: 3px;
-    border: 1px solid #757575;
-    background-color: #b3b3b3;
-    color: #757575;
-}
-
 .voting-right {
     max-width: 234px;
     width: 100%;

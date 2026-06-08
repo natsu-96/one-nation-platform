@@ -9,6 +9,7 @@
     grid-template-columns: repeat(3, 15fr); /* Perfect 3-column balancing matching screenshot */
     gap: 1.5rem;
     width: 100%;
+    padding-right: 40px; /* Added right padding to prevent content from touching the edge */
 }
 
 /* --- Individual Card Structure --- */
@@ -31,15 +32,13 @@
 /* Upper Blank Banner Canvas Frame */
 .quiz-card-banner {
     height: 220px;
-    background-color: #ffffff;
     width: 100%;
 }
 
 /* Card Detail Bottom Half Bracket Panel */
 .quiz-card-details {
-    background-color: #f4fcf7; /* Distinct soft green layout hue accent tint */
+    background-color: #fff; /* Distinct soft green layout hue accent tint */
     padding: 1.25rem;
-    border-top: 1px solid #e2ece6;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
@@ -57,7 +56,7 @@
     margin: 0;
     font-size: 1.35rem;
     font-weight: 700;
-    color: #226c37; /* Branding green */
+    color: #000; /* Branding green */
     letter-spacing: -0.02em;
     white-space: nowrap;
     overflow: hidden;
@@ -88,7 +87,7 @@
 }
 
 .quiz-play-btn {
-    background-color: #c5a634; /* Iconic Gold Call To Action Block */
+    background-color: #226c37; /* Iconic Gold Call To Action Block */
     color: #ffffff;
     border: none;
     border-radius: 6px;
@@ -101,7 +100,7 @@
 }
 
 .quiz-play-btn:hover {
-    background-color: #af922b;
+    background-color: #588665;
 }
 
 /* --- Pagination Elements Footer Block --- */

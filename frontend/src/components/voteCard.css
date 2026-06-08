@@ -1,100 +1,187 @@
-/* Card Box Container */
+/* Card Container */
 .vote-card {
-  border: 1px solid #cfcfcf;
-  border-radius: 16px;
-  overflow: hidden; /* Stops child background colors from breaking the rounded corners */
+  border-radius: 32px; /* Increased curve matching the UI design */
+  overflow: hidden;
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
-  height: 320px; 
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease;
+  width: 100%;
+  max-width: 340px; /* Optional: limit max width for better layout control */
 }
 
-/* Subtle lift effect on hover */
 .vote-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(26, 83, 43, 0.05);
+  transform: translateY(-4px);
 }
 
-/* Top Area: Empty White Space */
+/* --- Top Media Section --- */
 .card-top {
   position: relative;
-  flex: 1; 
-  padding: 16px;
+  width: 100%;
+  height: 280px;
 }
 
-/* "Most Voted" Badge text styling */
-.badge {
+.vote-card-img {
+  width: 100%;
+  height: 280px;
+}
+
+.vote-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Translucent Dual Badge Overlay */
+.rank-vote-badge {
   position: absolute;
-  top: 12px;
-  left: 12px;
-  font-size: 14px;
-  color: #8c968f;
-  font-weight: 500;
-}
-
-/* Bottom Area: Light Green Panels */
-.card-bottom {
-  background-color: #edf5ea;
-  border-top: 1px solid #e2ece6;
-  padding: 16px 20px;
+  top: 16px;
+  left: 16px;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(4px);
+  border-radius: 12px;
+  padding: 10px 16px;
   display: flex;
-  justify-content: space-between; /* Pushes text details left, button right */
-  align-items: center; /* Vertically aligns text and button items */
+  align-items: center;
+  gap: 12px;
+  z-index: 2;
+  color: #ffffff;
+  font-family: system-ui, -apple-system, sans-serif;
 }
 
-/* Text Containers & Hierarchy */
+.badge-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.badge-label {
+  font-size: 10px;
+  font-weight: 500;
+  color: #8c8c8c;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+
+.badge-value {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.badge-divider {
+  width: 1px;
+  height: 24px;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* --- Bottom Content Section --- */
+.card-bottom {
+  background-color: #ffffff;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
 .card-info {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 8px;
+  margin-bottom: 20px;
 }
 
 .candidate-name {
   margin: 0;
-  color: #226c37; /* Dark Forest Green */
-  font-size: 22px;
-  font-weight: 700;
-}
-
-.candidate-category {
-  margin: 0;
-  color: #6fa07b;
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.vote-count {
-  margin: 4px 0 0 0;
-  color: #226c37;
-  font-size: 14px;
-  font-weight: 700;
-}
-
-/* --- BUTTON TARGETS --- */
-
-/* Base configuration for "Vote!" button */
-.vote-btn {
-  background-color: #c5a634; /* Vibrant Gold */
-  color: #ffffff;
-  border: none;
-  border-radius: 6px;
-  padding: 10px 24px;
-  font-size: 16px;
+  color: #000000;
+  font-size: 1.125rem;
   font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  line-height: 28px;
 }
 
-.vote-btn:hover {
-  background-color: #b59022; 
+.candidate-description {
+  margin: 0;
+  color: #626D7C;
+  font-size: 0.875rem;
+  line-height: 20px;
+  font-weight: 500;
+  /* Truncate long descriptions after 2 lines like design */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
 }
 
-/* Altered configuration when the .voted class is attached */
-.vote-btn.voted {
-  background-color: #e4e4c2; /* Muted yellow/gold background */
-  color: #c5a634;            /* Sharp gold font */
-  border: 1px solid #c5a634;
-  cursor: not-allowed;       /* Changes user cursor to indicate a disabled field */
+/* --- Creator and Metrics Footer --- */
+.creator-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 4px;
+}
+
+.creator-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.creator-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: #e0e0e0;
+}
+
+.creator-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #111111;
+  line-height: 1rem;
+}
+
+/* Avatar stacking details */
+.voters-stack-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.voters-avatars {
+  display: flex;
+  align-items: center;
+}
+
+.avatar-stack-item {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  margin-right: -8px;
+}
+
+/* Simulated colors matching your image UI */
+.avatar-stack-item.color-1 { background-color: #ff6b6b; }
+.avatar-stack-item.color-2 { background-color: #4dadf7; }
+
+.avatar-stack-count {
+  min-width: 24px;
+  height: 24px;
+  border-radius: 12px;
+  background-color: #e9ecef;
+  border: 2px solid #ffffff;
+  font-size: 10px;
+  font-weight: 600;
+  color: #495057;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+}
+
+.voters-label {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #111111;
 }

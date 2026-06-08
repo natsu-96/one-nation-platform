@@ -1,4 +1,5 @@
 import React from "react";
+import girl from '../assets/girl.png'
 import "./QuizGrid.css";
 
 function QuizGrid({ items, onPlay }) {
@@ -8,7 +9,9 @@ function QuizGrid({ items, onPlay }) {
                 {items.map((quiz) => (
                     <div key={quiz.id} className="quiz-card">
                         {/* Upper Card Preview Canvas (Preserving Blank Frame Area) */}
-                        <div className="quiz-card-banner"></div>
+                        <div className="quiz-card-banner">
+                            <img src={girl}/>
+                        </div>
                         
                         {/* Card Metadata Meta Bottom Bar Info */}
                         <div className="quiz-card-details">

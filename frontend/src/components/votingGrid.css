@@ -1,6 +1,6 @@
 .voting-container {
-  padding: 40px;
-  max-width: 1200px;
+  padding: 24px;
+  max-width: 1280px;
   margin: 0 auto;
 }
 
@@ -8,6 +8,6 @@
 .vote-grid {
   display: grid;
   /* repeat(auto-fill...) automatically calculates how many columns fit on the screen */
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fill, minmax(286px, 1fr));
+  gap: 22px;
 }

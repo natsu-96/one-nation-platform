@@ -1,4 +1,6 @@
 import React from 'react';
+import { FaXTwitter, FaTiktok, FaInstagram } from 'react-icons/fa6'
+import rectangle from "../assets/rectangle.png";
 import './Leaderboard.css';
 
 function Leaderboard({ 
@@ -26,64 +28,87 @@ function Leaderboard({
   };
 
   return (
-    <aside className="sidebar-container">
-      {/* 1. Header Tag */}
-      <div className="live-badge-container">
-        <span className="live-badge">LIVE LEADERBOARD</span>
-      </div>
+    <div className="sidebar">
+      <aside className="sidebar-top">
+        {/* 1. Header Tag */}
+        <div className="live-badge-container">
+          <h2 className="section-title">Top This Week</h2>
+          <span className="live-badge">● Live Leaderboard</span>
+        </div>
 
-      {/* 2. Top Five Section */}
-      <section className="leaderboard-section">
-        <h2 className="section-title">TOP FIVE THIS WEEK</h2>
-        <div className="leaderboard-list">
-          {topFive.map((player, index) => (
-            <div key={player.id || index} className="leaderboard-row">
-              <span className="rank-number">{index + 1}</span>
-              <div className="avatar-wrapper">
-                {/* Custom circular star icon placeholder matching your UI */}
-                <div className="avatar-star">★</div>
+        {/* 2. Top Five Section */}
+        <section className="leaderboard-section">
+          <div className="leaderboard-list">
+            {topFive.map((player, index) => {
+              const displayName = player.creator?.name || "Anon Artist";
+              const creatorAvatar = player.creator?.avatar
+              return (
+              <div key={player.id || index} className="leaderboard-row">
+                <span className="rank-number">{index + 1}</span>
+                <div className="avatar-wrapper">
+                    <img src={creatorAvatar} alt={displayName} className="avatar-image" />
+                </div>
+                <span className="player-name">{displayName}</span>
+                <span className="player-votes">{player.votes.toLocaleString()} votes</span>
               </div>
-              <span className="player-name">{player.name}</span>
-              <span className="player-votes">{player.votes.toLocaleString()} votes</span>
+            )})}
+          </div>
+          </section>
+        </aside>
+
+        {/* 3. Stats Grid Section */}
+        <section className="stats-section">
+          <div className="stats-title"><h2>Voting This Week</h2></div>
+          <div className="stats-grid">
+            <div className="stat-card">
+              <div className="stat-box">
+                <img src={rectangle} alt="Votes Icon" className="stat-icon" />
+              </div>
+              <div className="stat-info">
+                <span className="stat-value">{formatStatNumber(totalVotes)}</span>
+                <span className="stat-label">TOTAL VOTES</span>
+              </div>
             </div>
-          ))}
-        </div>
-      </section>
+            <div className="stat-card">
+              <div className="stat-box">
+                <img src={rectangle} alt="Votes Icon" className="stat-icon" />
+              </div>
+              <div className="stat-info">
+                <span className="stat-value">{totalEntries}</span>
+                <span className="stat-label">ENTRIES</span>
+              </div>  
+            </div>
+            <div className="stat-card">
+              <div className="stat-box">
+                <img src={rectangle} alt="Votes Icon" className="stat-icon" />
+              </div>
+              <div className="stat-info">
+                <span className="stat-value highlight-gold">{votingEndsString}</span>
+                <span className="stat-label">VOTING ENDS</span>
+              </div>
+            </div>
+            <div className="stat-card">
+              <div className="stat-box">
+                <img src={rectangle} alt="Votes Icon" className="stat-icon" />
+              </div>
+              <div className="stat-info">
+                <span className="stat-value">{categoriesCount}</span>
+                <span className="stat-label">CATEGORIES</span>
+              </div>
+            </div>
+          </div>
+        </section>
 
-      {/* 3. Stats Grid Section */}
-      <section className="stats-section">
-        <h2 className="section-title">VOTING THIS WEEK</h2>
-        <div className="stats-grid">
-          <div className="stat-card">
-            <span className="stat-value">{formatStatNumber(totalVotes)}</span>
-            <span className="stat-label">TOTAL VOTES</span>
+        {/* 4. Share Box Section */}
+        <section className="share-box">
+          <h3 className="share-title">Share & Invite Friends</h3>
+          <div className="share-buttons">
+            <button className="share-btn"><FaTiktok /></button>
+            <button className="share-btn"><FaInstagram /></button>
+            <button className="share-btn"><FaXTwitter /></button>
           </div>
-          <div className="stat-card">
-            <span className="stat-value">{totalEntries}</span>
-            <span className="stat-label">ENTRIES</span>
-          </div>
-          <div className="stat-card">
-            <span className="stat-value highlight-gold">{votingEndsString}</span>
-            <span className="stat-label">VOTING ENDS</span>
-          </div>
-          <div className="stat-card">
-            <span className="stat-value">{categoriesCount}</span>
-            <span className="stat-label">CATEGORIES</span>
-          </div>
-        </div>
-      </section>
-
-      {/* 4. Share Box Section */}
-      <section className="share-box">
-        <h3 className="share-title">Share & Invite Friends</h3>
-        <p className="share-subtitle">Share your favourite entry to get them to the top</p>
-        <div className="share-buttons">
-          <button className="share-btn">WhatsApp</button>
-          <button className="share-btn">Instagram</button>
-          <button className="share-btn">Twitter</button>
-        </div>
-      </section>
-    </aside>
+        </section>
+    </div>
   );
 }
 

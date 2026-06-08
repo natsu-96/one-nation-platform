@@ -1,31 +1,63 @@
 import React from 'react';
 import './voteCard.css';
+import girl from "../assets/girl.png"
+import avatar from "../assets/avatar.png"
 
-function VoteCard({ name, category, votes, isMostVoted, hasVoted, onVote }) {
+function VoteCard({ 
+  title, 
+  description, 
+  votes, 
+  rank, 
+  image, 
+  creator = { name: "Creator", avatar: avatar },
+  votersCount = "1K" 
+}) {
+
+  const displayImage = image || girl;
   return (
     <div className="vote-card">
-      {/* Top section: Placeholder for image/banner */}
+      {/* Top Media Section */}
       <div className="card-top">
-        {isMostVoted && <span className="badge">Most Voted</span>}
+        <div className="rank-vote-badge">
+          <div className="badge-section">
+            <span className="badge-label">RANK</span>
+            <span className="badge-value">#{rank}</span>
+          </div>
+          <div className="badge-divider"></div>
+          <div className="badge-section">
+            <span className="badge-label">VOTES</span>
+            <span className="badge-value">{votes.toLocaleString()}</span>
+          </div>
+        </div>
+        <div className="vote-card-img">
+          <img src={displayImage} alt={title || "Submission" } />
+        </div>
       </div>
 
-      {/* Bottom section: Information & Action Area */}
+      {/* Bottom Content Section */}
       <div className="card-bottom">
         <div className="card-info">
-          <h3 className="candidate-name">{name}</h3>
-          <p className="candidate-category">{category}</p>
-          {/* .toLocaleString() formats the number with commas (e.g., 14,450) */}
-          <p className="vote-count">{votes.toLocaleString()} votes</p>
+          <h3 className="candidate-name">{title}</h3>
+          <p className="candidate-description">{description}</p>
         </div>
 
-        {/* Dynamic Button based on voting state */}
-        <button 
-          className={`vote-btn ${hasVoted ? 'voted' : ''}`} 
-          onClick={onVote}
-          disabled={hasVoted}
-        >
-          {hasVoted ? 'Voted!' : 'Vote!'}
-        </button>
+        {/* Creator and Social Proof Row */}
+        <div className="creator-row">
+          <div className="creator-profile">
+            <img src={creator.avatar} alt={creator.name} className="creator-avatar" />
+            <span className="creator-name">{creator.name}</span>
+          </div>
+          
+          <div className="voters-stack-wrapper">
+            <div className="voters-avatars">
+              {/* Stacked placeholder avatars matching the UI */}
+              <div className="avatar-stack-item color-1"></div>
+              <div className="avatar-stack-item color-2"></div>
+              <div className="avatar-stack-count">+{votersCount}</div>
+            </div>
+            <span className="voters-label">Voters</span>
+          </div>
+        </div>
       </div>
     </div>
   );

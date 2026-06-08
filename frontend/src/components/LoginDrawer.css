@@ -1,0 +1,135 @@
+/* --- Dimmed Background Blur Overlay --- */
+.drawer-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    z-index: 9998; /* Just under the drawer */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.drawer-backdrop.backdrop-visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* --- Core Right Side Panel Drawer Frame --- */
+.login-side-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 420px;
+    max-width: 100%;
+    height: 100vh;
+    background-color: #ffffff;
+    box-shadow: -4px 0 24px rgba(0, 0, 0, 0.15);
+    z-index: 9999; /* Tops everything on the page stage */
+    display: flex;
+    flex-direction: column;
+    padding: 2.5rem 2rem;
+    box-sizing: border-box;
+    
+    /* Absolute slide positioning mechanics engine toggles */
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.login-side-drawer.drawer-open {
+    transform: translateX(0);
+}
+
+/* --- Header Layout --- */
+.drawer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #e2ece6;
+    padding-bottom: 1rem;
+}
+
+.drawer-header h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1f6232; /* Match branding green */
+}
+
+.close-drawer-btn {
+    background: transparent;
+    border: none;
+    font-size: 2rem;
+    color: #757575;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.close-drawer-btn:hover {
+    color: #000;
+}
+
+/* --- Form Fields & Content Layouts --- */
+.drawer-login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.drawer-welcome-text {
+    font-size: 0.9rem;
+    color: #6b6b6b;
+    line-height: 1.5;
+    margin: 0 0 0.5rem 0;
+}
+
+.form-group-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group-field label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #333333;
+}
+
+.form-group-field input {
+    padding: 12px;
+    border: 1px solid #c8d3cc;
+    border-radius: 6px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.15s ease;
+}
+
+.form-group-field input:focus {
+    border-color: #1f6232;
+}
+
+/* --- Action Button Controllers --- */
+.drawer-form-actions {
+    margin-top: 1rem;
+}
+
+.drawer-submit-btn {
+    width: 100%;
+    background-color: #1f6232;
+    color: white;
+    border: none;
+    padding: 14px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.drawer-submit-btn:hover {
+    background-color: #123d1e;
+}

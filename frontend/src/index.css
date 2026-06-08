@@ -2,6 +2,7 @@
 body {
   margin: 0 auto;
   font-family: "Mona sans", sans-serif;
+  background-color: #f2f2f3;
 }
 .container {
   max-width: 1512px; 

@@ -7,7 +7,8 @@
 }
 .nav {
     display: flex;
-    margin: 1rem;
+    height: 68px;
+    margin: 0 2.2rem;
     justify-content: space-between;
     align-items: center;
 }
@@ -28,8 +29,8 @@
     list-style: none;
     font-weight: 600;
 }
-.nav-links li > button {
-    background-color: #2b68eb;
+.signin-btn button {
+    background-color: #226C37;
     font-size: 0.825rem;
     font-weight: 600;
     color: #fff;

@@ -1,9 +1,12 @@
 import './Hero.css'
 import { Link } from "react-router-dom";
+import goodjob from '../assets/goodjob.png'
+
 
 function Hero() {
   return (
         <div className="hero">
+            
             <div className="hero-content">
                 <div className="hero-badge">
                     <text>Celebrating Nigerian Excellence</text>

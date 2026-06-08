@@ -10,13 +10,13 @@ function VotingGrid({ candidates = [], onVote }) {
         {candidates.map((candidate) => (
           <VoteCard 
             key={candidate.id}
-            name={candidate.name}
-            category={candidate.category}
+            title={candidate.title} // e.g., "Naija Soul - Original Afrobeats"
+            description={candidate.description} 
             votes={candidate.votes}
-            hasVoted={candidate.hasVoted}
-            isMostVoted={candidate.isMostVoted}
-            // 2. Use the onVote function passed down from the parent
-            onVote={() => onVote(candidate.id)} 
+            rank={candidate.rank}
+            image={candidate.image}
+            creator={candidate.creator} // object: { name, avatar }
+            votersCount={candidate.votersCountString} // e.g., "1K" or "921"
           />
         ))}
       </div>

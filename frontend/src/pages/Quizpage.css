@@ -1,6 +1,8 @@
 .quiz-zone-page {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    margin-top: 2.5rem;
+    gap: 2.8rem;
 }
 
 .quizzing-top {
@@ -16,7 +18,7 @@
 }
 
 .quizzing-top span {
-    color: #c5a634;
+    color: #000;
 }
 
 .quizzing-top p {
@@ -34,27 +36,27 @@
     max-width: 153px;
     padding: 12px 24px;
     font-size: 1rem;
-    line-height: 91.6%;
+    line-height: 100%;
     color: #6b6b6b; /* Unselected tabs stay grey */
     transition: color 0.2s ease, border-color 0.2s ease;
 }
 
 /* Added hover feedback for better user experience */
 .quizzing-categories li:hover {
-    color: #c5a634;
+    color: #226c37;
 }
 
 /* 👇 DYNAMIC ACTIVE STATE SELECTOR */
 /* Whichever tab matches selectedCategory gets this yellow highlight styling */
 .quizzing-categories li.active-category {
-    color: #c5a634;
-    border-bottom: 2px solid #c5a634;
+    color: #226c37;
+    border-bottom: 2px solid #226c37;
     font-weight: 600; /* Subtle emphasis on the selected text */
 }
 
 .quizzing-body {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
 
 .quizzing-left {
@@ -62,7 +64,6 @@
     flex-direction: column;
     max-width: 1278px;
     width: 100%;
-    padding-right: 40px;
 }
 
 .quizzing-filter {
@@ -70,32 +71,28 @@
     gap: 52.4rem;
     margin-left: 3.43rem;
     margin-top: 1.125rem;
+    height: 52px;
+}
+.quizzing-filter-left {
+    border: 2px solid #E3E7EB;
+    background-color: #E3E7EB;
+    border-radius: 6px;
+    display: flex;
 }
 
 .quizzing-filter-left button {
-    padding: 5px 11px;
-    margin-right: 0.625rem;
-    border-radius: 3px;
-    border: 1px solid #757575;
-    background-color: #b3b3b3;
-    color: #757575;
+    padding: 10px 18px;
+    border: 0;
+    background-color: #E3E7EB;
+    color: #9b9a9a;
+    font-size: 0.85rem;
+    font-weight: 600;
+    height: 3rem;
 }
 
 .quizzing-filter-left button:first-child {
-    border: 1px solid #c5a634;
-    background-color: #dfce90;
-    color: #c5a634;
-}
-
-.quizzing-filter-right button {
-    padding: 5px 11px;
-    border-radius: 3px;
-    border: 1px solid #757575;
-    background-color: #b3b3b3;
-    color: #757575;
-}
-
-.quizzing-right {
-    max-width: 234px;
-    width: 100%;
+    background-color: #fff;
+    color: #000;
+    border-radius: 6px;
+    box-shadow: 0 9px 20px rgba(0, 0, 0, 0.08);
 }
