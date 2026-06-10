@@ -11,3 +11,14 @@
   grid-template-columns: repeat(auto-fill, minmax(286px, 1fr));
   gap: 22px;
 }
+
+@media (max-width: 768px) {
+  .voting-container {
+    padding: 12px 0px;
+  }
+
+  .vote-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}

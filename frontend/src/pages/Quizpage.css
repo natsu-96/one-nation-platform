@@ -6,7 +6,7 @@
 }
 
 .quizzing-top {
-    margin-left: 2.625rem;
+    margin-left: 2.rem;
 }
 
 .quizzing-top h2 {
@@ -14,7 +14,7 @@
     font-size: 2.5rem;
     font-weight: 800;
     letter-spacing: -9%;
-    color: #226c37;
+    color: #0C641B;
 }
 
 .quizzing-top span {
@@ -25,7 +25,70 @@
     margin: 0;
     color: #6b6b6b;
 }
-
+.live-quiz {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+}
+.live-quiz-header {
+    font-size: 1.75rem;
+    font-weight: 600;
+    line-height: 36px;
+}
+.live-quiz-tag {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #6b6b6b;
+    line-height: 24px;
+}
+.live-quiz-card {
+    background: #ffffff;
+    border: 1px solid #c8d3cc;
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 380px;
+    max-width: 385px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin-bottom: 2rem;
+}
+.live-quiz-img {
+    height: 220px;
+    width: 100%;
+}
+.live-quiz-details {
+    background-color: #fff; /* Distinct soft green layout hue accent tint */
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+.live-quiz-title {
+    margin-bottom: 0;
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 28px;
+}
+.live-quiz-description{
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 20px;
+    padding-bottom: 1.5rem;
+}
+.live-quiz-details span{
+    max-width: 79px;
+    height: 28px;
+    background-color: #9dcba8;
+    border: 1px solid #d8eddc;
+    color: #0C641B;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+    border-radius: 4px;
+}
 .quizzing-categories {
     display: flex;
     border-bottom: 1px solid #e2ece6; /* Softened slightly to match your UI layout lines better */
@@ -43,14 +106,14 @@
 
 /* Added hover feedback for better user experience */
 .quizzing-categories li:hover {
-    color: #226c37;
+    color: #0C641B;
 }
 
 /* 👇 DYNAMIC ACTIVE STATE SELECTOR */
 /* Whichever tab matches selectedCategory gets this yellow highlight styling */
 .quizzing-categories li.active-category {
-    color: #226c37;
-    border-bottom: 2px solid #226c37;
+    color: #0C641B;
+    border-bottom: 2px solid #0C641B;
     font-weight: 600; /* Subtle emphasis on the selected text */
 }
 

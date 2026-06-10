@@ -77,7 +77,7 @@
 .quiz-card-plays {
     font-size: 0.85rem;
     font-weight: 700;
-    color: #226c37;
+    color: #0C641B;
     margin-top: 0.25rem;
 }
 
@@ -87,7 +87,7 @@
 }
 
 .quiz-play-btn {
-    background-color: #226c37; /* Iconic Gold Call To Action Block */
+    background-color: #0C641B; /* Iconic Gold Call To Action Block */
     color: #ffffff;
     border: none;
     border-radius: 6px;
@@ -128,7 +128,7 @@
 }
 
 .pagination-arrow:hover {
-    color: #226c37;
+    color: #0C641B;
 }
 
 .pagination-numbers {
@@ -153,11 +153,11 @@
 
 .page-num:hover {
     background-color: #f0f4f1;
-    color: #226c37;
+    color: #0C641B;
 }
 
 .page-num.active-page {
-    background-color: #226c37; /* Highlight active pagination number marker */
+    background-color: #0C641B; /* Highlight active pagination number marker */
     color: #ffffff;
 }
 

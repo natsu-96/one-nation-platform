@@ -10,12 +10,15 @@ function VoteCard({
   rank, 
   image, 
   creator = { name: "Creator", avatar: avatar },
-  votersCount = "1K" 
+  votersCount = "1K",
+  onClick // 📥 Receive the click handler prop from VotingGrid
 }) {
 
   const displayImage = image || girl;
+  
   return (
-    <div className="vote-card">
+    /* 🎯 Attach the click handler here and give it a pointer style */
+    <div className="vote-card" onClick={onClick} style={{ cursor: "pointer" }}>
       {/* Top Media Section */}
       <div className="card-top">
         <div className="rank-vote-badge">
@@ -50,7 +53,6 @@ function VoteCard({
           
           <div className="voters-stack-wrapper">
             <div className="voters-avatars">
-              {/* Stacked placeholder avatars matching the UI */}
               <div className="avatar-stack-item color-1"></div>
               <div className="avatar-stack-item color-2"></div>
               <div className="avatar-stack-count">+{votersCount}</div>

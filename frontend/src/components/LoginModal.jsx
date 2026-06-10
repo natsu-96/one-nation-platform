@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5"; // Run: npm install react-icons
+import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5"; 
 import { FcGoogle } from "react-icons/fc";
 import "./LoginModal.css";
 
@@ -14,38 +14,39 @@ function LoginModal({ isOpen, onClose }) {
     const handleLoginSubmit = (e) => {
         e.preventDefault();
         console.log("Mock login submitted:", { email, password, keepSignedIn });
+        
+        // 🌟 MOCK ROLE ROUTER TRIGGER: 
+        // Checks if input email explicitly uses the admin domain or prefix from mock-ups
+        const isUserAdmin = email.toLowerCase().includes("admin");
+        
         localStorage.setItem("token", "mock-session-token-xyz");
+        localStorage.setItem("userRole", isUserAdmin ? "admin" : "user");
+        localStorage.setItem("userEmail", email);
+
         onClose();
+        window.location.reload(); // Quick state refresh to push token updates through layout trees
     };
 
     return (
         <div className="modal-overlay" onClick={onClose}>
             <div className="modal-card" onClick={(e) => e.stopPropagation()}>
-                {/* Close Button Button */}
-                <button className="modal-close-btn" onClick={onClose}>
-                    &times;
-                </button>
-
-                {/* Top Gray Placeholder Logo Image */}
+                <button className="modal-close-btn" onClick={onClose}>&times;</button>
                 <div className="modal-logo-placeholder"></div>
-
                 <h3 className="modal-title">Log in or sign up</h3>
 
                 <form className="modal-form" onSubmit={handleLoginSubmit}>
-                    {/* Email Input */}
                     <div className="input-group">
                         <label htmlFor="email">Email</label>
                         <input
                             id="email"
                             type="email"
-                            placeholder="hello@123d.one"
+                            placeholder="hello@123d.one (or admin@nigeriacelebrates.ng)"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required
                         />
                     </div>
 
-                    {/* Password Input with Visibility Switch */}
                     <div className="input-group">
                         <label htmlFor="password">Password</label>
                         <div className="password-input-wrapper">
@@ -67,7 +68,6 @@ function LoginModal({ isOpen, onClose }) {
                         </div>
                     </div>
 
-                    {/* Form Metadata Controls row */}
                     <div className="form-options-row">
                         <label className="checkbox-container">
                             <input
@@ -77,20 +77,15 @@ function LoginModal({ isOpen, onClose }) {
                             />
                             <span className="checkbox-label">Keep me signed in</span>
                         </label>
-                        <a href="#forgot" className="forgot-password-link">
-                            Forgot password?
-                        </a>
+                        <a href="#forgot" className="forgot-password-link">Forgot password?</a>
                     </div>
 
-                    {/* Primary Sign In Button */}
                     <button type="submit" className="primary-signin-btn">
                         <span className="btn-icon">➔</span> Sign In
                     </button>
 
-                    {/* OAuth Divider */}
                     <div className="divider">or</div>
 
-                    {/* Google Alternative Button */}
                     <button
                         type="button"
                         className="google-signin-btn"

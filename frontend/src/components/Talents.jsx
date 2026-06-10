@@ -1,23 +1,24 @@
 import './Talents.css'
 
 const talentCategories = [
-    { name: 'Music', icon: '🎵' },
-    { name: 'Football Freestyle', icon: '⚽' },
-    { name: 'Basketball Freestyle', icon: '🏀' },
-    { name: 'Comedy', icon: '😂' },
-    { name: 'Visual Arts', icon: '🎨' },
-    { name: 'Hair Artistry', icon: '💇' },
-    { name: 'Fashion', icon: '👗' },
-    { name: 'Film', icon: '🎬' },
-    { name: 'Photography', icon: '📸' },
-    { name: 'Tech Innovation', icon: '💻' },
-    { name: 'Logo Design', icon: '💡' }
+    { name: 'Music' },
+    { name: 'Football Freestyle' },
+    { name: 'Basketball Freestyle' },
+    { name: 'Comedy' },
+    { name: 'Visual Arts' },
+    { name: 'Hair Artistry' },
+    { name: 'Fashion' },
+    { name: 'Film' },
+    { name: 'Photography' },
+    { name: 'Tech Innovation' },
+    { name: 'Logo Design' }
 ];
 
 function Talents() {
   return (
     <>
       <div className="talents">
+        <div className="container">
         <div className="talents-header">
             <h1>Naija Talent Zone</h1>
             <p>Explore incredible talents across 11 categories. From music to tech innovation, find the best of Nigerian creativity.</p>
@@ -29,6 +30,7 @@ function Talents() {
               <h3>{category.name}</h3>
             </div>
           ))}
+        </div>
         </div>
       </div>
     </>

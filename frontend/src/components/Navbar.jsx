@@ -29,9 +29,10 @@ function Navbar() {
                     <div className="logo"><Link to="/">NC</Link></div>
                 </div>
                 <div className="nav-links">
-                    <Link to="/talent"><li>Talent Zone</li></Link>
                     <Link to="/voting"><li>Vote</li></Link>
                     <Link to="/quiz"><li>Quiz</li></Link>
+                    <Link to="/icons"><li>Icons</li></Link>
+                    <Link to="/champions"><li>Champions</li></Link>
                 </div>
                 <div className="signin-btn">
                     {isLoggedIn ? (

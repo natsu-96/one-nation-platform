@@ -1,5 +1,5 @@
 /* Card Container */
-.vote-card {
+.icon-card {
   border-radius: 32px; /* Increased curve matching the UI design */
   overflow: hidden;
   background-color: #ffffff;
@@ -11,30 +11,30 @@
   max-width: 340px; /* Optional: limit max width for better layout control */
 }
 
-.vote-card:hover {
+.icon-card:hover {
   transform: translateY(-4px);
 }
 
 /* --- Top Media Section --- */
-.card-top {
+.icon-top {
   position: relative;
   width: 100%;
   height: 280px;
 }
 
-.vote-card-img {
+.icon-card-img {
   width: 100%;
   height: 280px;
 }
 
-.vote-card-img img {
+.icon-card-img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
 /* Translucent Dual Badge Overlay */
-.rank-vote-badge {
+.position-vote-badge {
   position: absolute;
   top: 16px;
   left: 16px;
@@ -90,8 +90,16 @@
   gap: 8px;
   margin-bottom: 20px;
 }
-
-.candidate-name {
+.nominate-icon button{
+    max-width: 254px;
+    width: 100%;
+    height: 48px;
+    background-color: #0C641B;
+    color: #ffffff;
+    border: 0;
+    border-radius: 12px;
+}
+.icon-name {
   margin: 0;
   color: #000000;
   font-size: 1.125rem;
@@ -99,101 +107,26 @@
   line-height: 28px;
 }
 
-.candidate-description {
+.icon-bio {
   margin: 0;
   color: #626D7C;
   font-size: 0.875rem;
   line-height: 20px;
   font-weight: 500;
-  /* Truncate long descriptions after 2 lines like design */
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;  
   overflow: hidden;
 }
 
-/* --- Creator and Metrics Footer --- */
-.creator-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 4px;
-}
-
-.creator-profile {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.creator-avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  object-fit: cover;
-  background-color: #e0e0e0;
-}
-
-.creator-name {
-  font-size: 1rem;
-  font-weight: 700;
-  color: #111111;
-  line-height: 1rem;
-}
-
-/* Avatar stacking details */
-.voters-stack-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.voters-avatars {
-  display: flex;
-  align-items: center;
-}
-
-.avatar-stack-item {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: 2px solid #ffffff;
-  margin-right: -8px;
-}
-
-/* Simulated colors matching your image UI */
-.avatar-stack-item.color-1 { background-color: #ff6b6b; }
-.avatar-stack-item.color-2 { background-color: #4dadf7; }
-
-.avatar-stack-count {
-  min-width: 24px;
-  height: 24px;
-  border-radius: 12px;
-  background-color: #e9ecef;
-  border: 2px solid #ffffff;
-  font-size: 10px;
-  font-weight: 600;
-  color: #495057;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 4px;
-}
-
-.voters-label {
-  font-size: 1rem;
-  font-weight: 700;
-  color: #111111;
-}
-
 @media (max-width: 768px) {
-  .vote-card {
+  .icon-card {
     max-width: 100%;
     border-radius: 24px;
   }
 
-  .card-top, 
-  .vote-card-img {
+  .icon-top, 
+  .icon-card-img {
     height: 320px; 
   }
   

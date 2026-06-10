@@ -15,7 +15,7 @@
 .logo {
     font-size: 3rem;
     font-weight: 600;
-    color: #226c37;
+    color: #0C641B;
     line-height: 99.5%;
     letter-spacing: -27%;
 }
@@ -24,18 +24,18 @@
     align-items: center;
 }
 .nav-links li {
-    font-size: 0.9rem;
+    font-size: 1.125rem;
     margin-left: 1rem;
     list-style: none;
     font-weight: 600;
 }
 .signin-btn button {
-    background-color: #226C37;
+    background-color: #0C641B;
     font-size: 0.825rem;
     font-weight: 600;
     color: #fff;
-    width: 70px;
-    height: 30px;
+    width: 110px;
+    height: 40px;
     border-radius: 9px;
     border: none;
 }

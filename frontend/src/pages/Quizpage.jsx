@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Leaderboard from "../components/Leaderboard";
 import Navbar from "../components/Navbar";
 import QuizGrid from "../components/QuizGrid";
@@ -22,7 +23,7 @@ function Quizpage() {
 
     // Dynamic View Router Simulation State
     const [activeQuizSession, setActiveQuizSession] = useState(null); 
-
+    const navigate = useNavigate();
     const quizCategories = ["HISTORY", "GEOGRAPHY", "ENTERTAINMENT", "SPORTS", "STEM", "ICONS"];
     const talentCategories = ["Music", "Artwork", "Comedy", "Football", "Fashion", "Logo", "Photo", "Film", "Sports"];
 
@@ -133,7 +134,22 @@ function Quizpage() {
                             <div className="quizzing-header-text">
                                 <h2>NAIJA <span className="gold-text">QUIZ ZONE</span></h2>
                                 <p>Test your knowledge about Nigerian history, geography, music, sports, and more. Compete with thousands of players in real-time.</p>
-                                
+                            </div>
+                            <div className="live-quiz">
+                                <div className="live-quiz-header">Live Quizzes</div>
+                                <div className="live-quiz-tag">Showcase your talent, vote for the best, and celebrate Nigerian culture on Africa's biggest digital platform.</div>
+                                <div className="live-quiz-card" onClick={() => navigate("/livequiz")}
+                                    style={{ cursor: "pointer" }}>
+                                    <div className="live-quiz-img">
+                                        <img src={image}/>
+                                    </div>
+                                    <div className="live-quiz-details">
+                                        <h3 className="live-quiz-title">Live Quiz - Geography</h3>
+                                        <p className="live-quiz-description">Join this weeks quiz to test your epic geography knowledge</p>
+                                        <span className="quiz-status">● Active</span>
+                                    </div>
+                                </div>
+                            </div>
                                 <div className="quizzing-categories">
                                     <li 
                                         className={selectedCategory === "ALL ENTRIES" ? "active-category" : ""}
@@ -153,7 +169,6 @@ function Quizpage() {
                                         </li>
                                     ))}
                                 </div>
-                            </div>
                         </div>
                         <div className="quizzing-body">
                             
