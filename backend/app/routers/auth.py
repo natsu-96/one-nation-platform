@@ -1,11 +1,13 @@
 from typing import Annotated
 from fastapi import APIRouter, Depends, status, HTTPException
-from schemas.user import UserCreate, UserInDb, UserResponse
-from services.auth import create_access_token, pwd_context, generate_referral_code, oauth_context
+from schemas.user import UserCreate, UserInDb, UserResponse, CurrentUser
+from services.auth import create_access_token, pwd_context, generate_referral_code, get_current_user
 from services.db import get_async_session
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi.security import OAuth2PasswordRequestForm
+from schemas.uploads import Uploads
+from schemas.quiz import QuizScore
 
 auth_router = APIRouter(prefix="/api/v1/auth", tags=["Authentication and Registration"])
 
@@ -83,3 +85,39 @@ async def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()], sess
 
     return {"access_token": token, "token_type": "bearer"}
 
+@auth_router.get("/arena/dashboard", status_code=status.HTTP_200_OK)
+async def get_user_arena_dashboard(
+    current_user: CurrentUser = Depends(get_current_user),
+    session: AsyncSession = Depends(get_async_session)
+):
+    """
+    Returns profile information combined with specific user statistics 
+    (Total talent uploads and quiz history) to populate the My Arena view.
+    """
+    # 1. Fetch user's talent submission history count
+    upload_stmt = select(Uploads).where(Uploads.user_id == current_user.user_id)
+    upload_exec = await session.execute(upload_stmt)
+    user_uploads = upload_exec.scalars().all()
+    
+    # 2. Fetch user's past quiz scores
+    quiz_stmt = select(QuizScore).where(QuizScore.user_id == current_user.user_id)
+    quiz_exec = await session.execute(quiz_stmt)
+    user_scores = quiz_exec.scalars().all()
+    
+    return {
+        "user": {
+            "user_id": current_user.user_id,
+            "username": current_user.username,
+            "email": current_user.email,
+            "role": current_user.role,
+            "referral_code": current_user.referral_code,
+        },
+        "stats": {
+            "total_uploads": len(user_uploads),
+            "quiz_attempts": len(user_scores)
+        },
+        "quiz_history": [
+            {"quiz_session_id": score.quiz_session_id, "score": score.score, "completed_at": score.completed_at}
+            for score in user_scores
+        ]
+    }
