@@ -57,7 +57,7 @@ class QuizQuestion(SQLModel, table=True):
     __tablename__ = "questions"
     
     id: UUID = Field(default_factory=uuid4, primary_key=True)
-    quiz_session_id: int = Field(foreign_key="quizsession.id")
+    quiz_session_id: UUID = Field(foreign_key="quizsession.id")
     question_text: str
     
     option_a: str
@@ -72,8 +72,8 @@ class QuizScore(SQLModel, table=True):
     __tablename__ = "scores"
     
     id: Optional[int] = Field(default=None, primary_key=True)
-    user_id: int = Field(foreign_key="user.id", index=True)
-    quiz_session_id: int = Field(foreign_key="quizsession.id")
+    user_id: int = Field(foreign_key="users.user_id", index=True)
+    quiz_session_id: UUID = Field(foreign_key="quizsession.id")
     score: int  
     completed_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 

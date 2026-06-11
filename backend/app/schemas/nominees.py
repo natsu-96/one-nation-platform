@@ -41,10 +41,10 @@ class CompendiumVotes(SQLModel, table=True):
     vote_id: UUID = Field(default_factory=uuid4, primary_key=True)
     
     # Foreign key mapping back to your user table integer primary key id sequence
-    user_id: int = Field(foreign_key="user.id", index=True, nullable=False)
+    user_id: int = Field(foreign_key="users.user_id", index=True, nullable=False)
     
     # Foreign key mapping back to the CompendiumNominees UUID primary key sequence
-    nominee_id: UUID = Field(foreign_key="CompendiumNominees.nominee_id", index=True, nullable=False)
+    nominee_id: UUID = Field(foreign_key="nominees.id", index=True, nullable=False)
     
     created_at: datetime = Field(
         default_factory=lambda: datetime.now(timezone.utc), 

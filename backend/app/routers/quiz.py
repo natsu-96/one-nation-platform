@@ -67,7 +67,7 @@ async def get_session_questions(
     return questions
 
 
-@quiz_router.post("/submit-score", status_code=status.HTTP_201_OK)
+@quiz_router.post("/submit-score", status_code=status.HTTP_200_OK)
 async def submit_quiz_score(
     payload: dict, 
     db: AsyncSession = Depends(get_async_session), 
