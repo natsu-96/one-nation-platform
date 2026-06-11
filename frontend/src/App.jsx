@@ -1,4 +1,5 @@
 import './App.css'
+// 1. Add BrowserRouter to your imports
 import { BrowserRouter, Routes, Route } from "react-router-dom"; 
 import Home from './pages/Home'
 import Voting from './pages/Voting'
@@ -20,6 +21,9 @@ function App() {
         <Route path='/details/:id' element={ <TalentDetails /> } />
         <Route  path='/icons' element={<Icons />}/>
         <Route  path='/champions' element={<Champions />}/>
+        {/* <Route path='/upload' element={ <Home /> } /> */}
+        <Route path='/voting' element={ <Home /> } />
+        {/* <Route path='/quiz' element={ <Home /> } /> */}
       </Routes>
     </BrowserRouter>
   );

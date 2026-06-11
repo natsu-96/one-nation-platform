@@ -42,6 +42,10 @@ function Navbar() {
                     ) : (
                         <Link><button onClick={() => setLoginOpen(true)}>Sign In</button></Link>
                     )}
+                    <Link to="/talent"><li><a>Talent Zone</a></li></Link>
+                    <Link to="/voting"><li><a>Vote</a></li></Link>
+                    <Link to="/quiz"><li><a>Quiz</a></li></Link>
+                    <Link to="/signin"><li><button>Sign In</button></li></Link>
                 </div>
             </div>
         </div>
