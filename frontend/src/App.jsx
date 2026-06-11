@@ -1,12 +1,20 @@
 import './App.css'
+// 1. Add BrowserRouter to your imports
+import { BrowserRouter, Routes, Route } from "react-router-dom"; 
 import Home from './pages/Home'
 
 function App() {
   return (
-    <>
-      <Home />
-    </>
-  )
+    // 2. Wrap everything inside BrowserRouter
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={ <Home /> } />
+        {/* <Route path='/upload' element={ <Home /> } /> */}
+        <Route path='/voting' element={ <Home /> } />
+        {/* <Route path='/quiz' element={ <Home /> } /> */}
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App
