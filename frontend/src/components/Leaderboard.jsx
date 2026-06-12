@@ -1,25 +1,23 @@
 import React from 'react';
 import { FaXTwitter, FaTiktok, FaInstagram } from 'react-icons/fa6'
+import { ChartBarStacked, Timer, BetweenHorizontalStart, Vote } from 'lucide-react';
 import rectangle from "../assets/rectangle.webp";
 import './Leaderboard.css';
 
 function Leaderboard({ 
-  // Accept active data from your parent state or database
   candidates = [], 
   totalEntries = 48, 
   categoriesCount = 11,
   votingEndsString = "03d 04h"
 }) {
   
-  // Active Data Calculation 1: Sort candidates by highest votes and take top 5
   const topFive = [...candidates]
     .sort((a, b) => b.votes - a.votes)
     .slice(0, 5);
 
-  // Active Data Calculation 2: Sum up all votes dynamically
   const totalVotes = candidates.reduce((sum, item) => sum + item.votes, 0);
 
-  // Helper function to format large numbers (e.g., 214500 -> "214.5K" or similar)
+
   const formatStatNumber = (num) => {
     if (num >= 1000) {
       return (num / 1000).toFixed(0) + 'K';
@@ -62,7 +60,7 @@ function Leaderboard({
           <div className="stats-grid">
             <div className="stat-card">
               <div className="stat-box">
-                <img src={rectangle} alt="Votes Icon" className="stat-icon" />
+                <Vote size={40}/>
               </div>
               <div className="stat-info">
                 <span className="stat-value">{formatStatNumber(totalVotes)}</span>
@@ -71,7 +69,7 @@ function Leaderboard({
             </div>
             <div className="stat-card">
               <div className="stat-box">
-                <img src={rectangle} alt="Votes Icon" className="stat-icon" />
+                <BetweenHorizontalStart size={40}/>
               </div>
               <div className="stat-info">
                 <span className="stat-value">{totalEntries}</span>
@@ -80,7 +78,7 @@ function Leaderboard({
             </div>
             <div className="stat-card">
               <div className="stat-box">
-                <img src={rectangle} alt="Votes Icon" className="stat-icon" />
+                <Timer size={40}/>
               </div>
               <div className="stat-info">
                 <span className="stat-value highlight-gold">{votingEndsString}</span>
@@ -89,7 +87,7 @@ function Leaderboard({
             </div>
             <div className="stat-card">
               <div className="stat-box">
-                <img src={rectangle} alt="Votes Icon" className="stat-icon" />
+                <ChartBarStacked size={40}/>
               </div>
               <div className="stat-info">
                 <span className="stat-value">{categoriesCount}</span>
