@@ -1,7 +1,7 @@
 import './Champs.css'
 import { useState } from "react";
-import girl from "../assets/girl.png";
-import icon from "../assets/icon.png";
+import girl from "../assets/girl.webp";
+import icon from "../assets/icon.webp";
 
 const champsData = [
   { name: "Kim", rank: 1, votes: 12440, prize: "1 Million Naira!", image: girl },

@@ -1,16 +1,18 @@
-import { useState, useEffect } from "react"
-import "./Icons.css"
-import Navbar from "../components/Navbar"
-import IconsGrid from "../components/IconsGrid"
-import CustomDropdown from "../components/CustomDropdown"
-import IconsLeaderboard from "../components/IconsLeaderboard"
-import { Link } from "react-router-dom"
-import icon from '../assets/icon.png'
+import { useState, useEffect } from "react";
+import "./Iconspage.css";
+import Navbar from "../components/Navbar";
+import IconsGrid from "../components/IconsGrid";
+import CustomDropdown from "../components/CustomDropdown";
+import SearchBar from "../components/SearchBar"; // Added SearchBar import
+// import IconsLeaderboard from "../components/IconsLeaderboard";
+import { Link } from "react-router-dom";
+import icon from '../assets/icon.webp';
 
-function Icons() {
+function Iconspage() {
     const [icons, setIcons] = useState([]);
     const [selectedNiche, setSelectedNiche] = useState("All");
     const [loading, setLoading] = useState(true);
+    const [searchTerm, setSearchTerm] = useState(""); // Added search state
 
     const niches = ["Music", "Artwork", "Comedy", "Football", "Fashion", "Logo", "Photo", "Film", "Sports"];
 
@@ -28,7 +30,7 @@ function Icons() {
             votersCountString: "1K",
         });
 
-        if (selectedNiche === "All") {
+        if (selectedNiche === "All" || selectedNiche === "All Entries") {
             const fetchPromises = niches.map((niche) =>
             fetch(`http://localhost:8000/api/v1/leaderboard/talent/${niche}?limit=20`)
                 .then((res) => (res.ok ? res.json() : []))
@@ -61,7 +63,7 @@ function Icons() {
                     loadSingleNicheMockData(selectedNiche);
                     return;
                 }
-                const formattedIcons = data.map(formatIcons);
+                const formattedIcons = data.map(formatIcon); // Fixed typo here (was formatIcons)
                 setIcons(formattedIcons);
                 setLoading(false);
             });
@@ -72,10 +74,10 @@ function Icons() {
     const loadAllMockIcons = () => {
         setIcons([
             {id:1, name:"John Doe", niche:"Music", bio:"A talented musician", votes:1000, img: icon, votersCountString:"1K", position: "5"},
-            {id:1, name:"Doe Jean", niche:"Medicine", bio:"A registered nurse", votes:5000, img: icon, votersCountString:"5K", position: "4"},
-            {id:1, name:"John Deer", niche:"Natural Science", bio:"A botanist", votes:10000, img: icon, votersCountString:"50K", position: "2"},
-            {id:1, name:"Deer Doe", niche:"VisualArts", bio:"A talented artist", votes:15000, img: icon, votersCountString:"15K", position: "3"},
-            {id:1, name:"John Jean", niche:"Sports", bio:"An exceptional athlete", votes:349000, img: icon, votersCountString:"349K", position: "1"}
+            {id:2, name:"Doe Jean", niche:"Medicine", bio:"A registered nurse", votes:5000, img: icon, votersCountString:"5K", position: "4"},
+            {id:3, name:"John Deer", niche:"Natural Science", bio:"A botanist", votes:10000, img: icon, votersCountString:"50K", position: "2"},
+            {id:4, name:"Deer Doe", niche:"VisualArts", bio:"A talented artist", votes:15000, img: icon, votersCountString:"15K", position: "3"},
+            {id:5, name:"John Jean", niche:"Sports", bio:"An exceptional athlete", votes:349000, img: icon, votersCountString:"349K", position: "1"}
         ]);
         setLoading(false);
     };
@@ -83,7 +85,7 @@ function Icons() {
     const loadSingleNicheMockData = (niche) => {
         setIcons([
             {id:1, name:"John Doe", niche:niche, bio:`A talented ${niche} icon`, votes:1000, img: icon, votersCountString:"1K", position: "5"},
-            {id:1, name:"Doe Jean", niche:niche, bio:`A registered ${niche} icon`, votes:5000, img: icon, votersCountString:"5K", position: "4"},
+            {id:2, name:"Doe Jean", niche:niche, bio:`A registered ${niche} icon`, votes:5000, img: icon, votersCountString:"5K", position: "4"},
         ]);
         setLoading(false);
     };
@@ -101,6 +103,12 @@ function Icons() {
             )
         );
     }
+
+    // Filter logic based on search term
+    const filteredIcons = icons.filter((icon) =>
+        icon.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     return (
         <>
             <Navbar />
@@ -122,9 +130,8 @@ function Icons() {
                         <div className="icons-body">
                             <div className="icons-filter">
                                 <div className="icons-filter-left">
-                                    <button>Trending</button>
-                                    <button>Newest</button>
-                                    <button>Most Voted</button>
+                                    {/* Replaced buttons with SearchBar */}
+                                    <SearchBar searchTerm={searchTerm} onSearchChange={setSearchTerm} />
                                 </div>
                                 <div className="icons-filter-right"><CustomDropdown /></div>
                             </div>
@@ -132,7 +139,7 @@ function Icons() {
                                 {loading ? (
                                     <div className="loading-state">Fetching live entries...</div>
                                 ) : (
-                                    <IconsGrid icons={icons} onVote={handleVote} />
+                                    <IconsGrid icons={filteredIcons} onVote={handleVote} />
                                 )}
                             </div>
                         </div>
@@ -146,5 +153,4 @@ function Icons() {
     )
 }
 
-export default Icons
-
+export default Iconspage;

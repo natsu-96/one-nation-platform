@@ -265,3 +265,99 @@
     border-radius: 8px;
     cursor: pointer;
 }
+
+/* --- MOBILE RESPONSIVE STYLES --- */
+
+@media screen and (max-width: 768px) {
+    .quiz-play-screen-container {
+        padding: 1.5rem 1rem;
+    }
+
+    .quiz-play-top-navigation {
+        margin-bottom: 1rem;
+    }
+
+    .quiz-nav-exit-btn {
+        padding: 8px 20px;
+        font-size: 0.9rem;
+    }
+
+    .quiz-nav-category-tag {
+        font-size: 0.85rem;
+        text-align: center;
+        /* Truncate if the category name is unexpectedly long */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 120px;
+    }
+
+    .quiz-nav-live-clock {
+        font-size: 1.5rem;
+        min-width: 55px;
+    }
+
+    /* Shrink the massive desktop paddings */
+    .quiz-play-card-window {
+        padding: 2rem 1.5rem;
+        min-height: auto; /* Let the content dictate the height on mobile */
+    }
+
+    .quiz-active-question-prompt {
+        font-size: 1.4rem;
+        margin-bottom: 2rem;
+    }
+
+    /* Tighten up the option rows */
+    .quiz-active-option-row-item {
+        padding: 1rem 1.25rem;
+        gap: 0.5rem;
+    }
+
+    .native-radio-input-box-wrapper {
+        margin-right: 0.75rem;
+    }
+
+    .native-option-label-string-text {
+        font-size: 1rem;
+        line-height: 1.4;
+    }
+
+    /* Footer buttons evenly split the width */
+    .quiz-play-footer-actions-bar {
+        gap: 1rem;
+    }
+
+    .quiz-action-back-btn, 
+    .quiz-action-next-btn {
+        flex: 1; /* Makes them share the available width equally */
+        padding: 12px 0;
+        text-align: center;
+    }
+
+    /* End Session Layout Shrinking */
+    .end-session-layout h2 {
+        font-size: 1.75rem;
+    }
+
+    .end-session-layout p {
+        font-size: 0.95rem;
+        padding: 0 1rem;
+    }
+}
+
+/* Extra tweaks for very small phones */
+@media screen and (max-width: 480px) {
+    .quiz-play-card-window {
+        padding: 1.5rem 1rem;
+    }
+
+    .quiz-active-question-prompt {
+        font-size: 1.25rem;
+    }
+
+    /* Hide the category tag entirely on very small screens to give the timer and exit button room */
+    .quiz-nav-category-tag {
+        display: none; 
+    }
+}

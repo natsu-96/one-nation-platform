@@ -1,5 +1,5 @@
 import './Champions.css'
-import avatar from '../assets/avatar.png'
+import avatar from '../assets/avatar.webp'
 import Navbar from '../components/Navbar';
 import CustomDropdown from '../components/CustomDropdown';
 

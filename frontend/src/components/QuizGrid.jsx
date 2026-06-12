@@ -1,5 +1,5 @@
 import React from "react";
-import girl from '../assets/girl.png'
+import girl from '../assets/girl.webp'
 import "./QuizGrid.css";
 
 function QuizGrid({ items, onPlay }) {

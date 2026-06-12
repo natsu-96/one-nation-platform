@@ -1,6 +1,6 @@
 import React from 'react';
 import { FaXTwitter, FaTiktok, FaInstagram } from 'react-icons/fa6'
-import rectangle from "../assets/rectangle.png";
+import rectangle from "../assets/rectangle.webp";
 import './Leaderboard.css';
 
 function IconsLeaderboard({ 

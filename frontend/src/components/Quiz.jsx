@@ -1,5 +1,5 @@
 import './Quiz.css'
-import quizImg from "../assets/quizImg.png"
+import quizImg from "../assets/quizImg.webp"
 
 function Quiz() {
   return (

@@ -5,7 +5,7 @@ import {
     Video, ShieldCheck, Award, Check, ChevronRight, Music, Palette, Monitor
 } from "lucide-react"; 
 import UploadTalentDrawer from "./UploadTalentDrawer"; 
-import defaultAvatar from "../assets/avatar.png";
+import defaultAvatar from "../assets/avatar.webp";
 import "./DashboardDrawer.css";
 
 function DashboardDrawer({ isOpen, onClose, onLogout }) {

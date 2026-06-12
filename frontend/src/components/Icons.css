@@ -115,9 +115,35 @@
 }
 .icons-btn button {
     padding: 12px 32px;
-    background-color: transparent;
+    background-color: #0C641B;
+    color: #fff;
     border: 1px solid #9c9c9c60;
     border-radius: 9px;
     font-weight: 600;
-    box-shadow: 0 1px 6px 0 #00000017;
+    box-shadow: 0 1px 6px 0 #0c641b96;
+}
+
+/* --- MOBILE RESPONSIVE --- */
+@media screen and (max-width: 768px) {
+    .icons-section {
+        margin-left: 1.5rem;
+        margin-right: 1.5rem;
+    }
+    .icons-header h1 {
+        font-size: 2rem;
+        text-align: center;
+    }
+    .iconz-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on tablet */
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .iconz-grid {
+        grid-template-columns: 1fr; /* 1 column on mobile */
+    }
+    .icon-card img {
+        width: 100%;
+        object-fit: cover;
+    }
 }

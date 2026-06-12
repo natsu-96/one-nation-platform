@@ -1,7 +1,7 @@
 import React from 'react';
 import './voteCard.css';
-import girl from "../assets/girl.png"
-import avatar from "../assets/avatar.png"
+import girl from "../assets/girl.webp"
+import avatar from "../assets/avatar.webp"
 
 function VoteCard({ 
   title, 

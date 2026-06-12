@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import Leaderboard from "../components/Leaderboard";
 import Navbar from "../components/Navbar";
 import VotingGrid from "../components/votingGrid";
-import image from "../assets/girl.png";
-import avatar from "../assets/avatar.png";
+import image from "../assets/girl.webp";
+import avatar from "../assets/avatar.webp";
 import "./Voting.css";
 import CustomDropdown from "../components/CustomDropdown";
 

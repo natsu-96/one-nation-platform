@@ -5,10 +5,8 @@ import Navbar from "../components/Navbar";
 import QuizGrid from "../components/QuizGrid";
 import ActiveQuizPlay from "../pages/ActiveQuiz"; 
 import "./Quizpage.css";
-
-// Import assets needed for the Talent Leaderboard mock data fallbacks
-import image from "../assets/girl.png";
-import avatar from "../assets/avatar.png";
+import image from "../assets/girl.webp";
+import avatar from "../assets/avatar.webp";
 
 function Quizpage() {
     // Quiz Catalog States

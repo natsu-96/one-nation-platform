@@ -112,3 +112,14 @@
   width: 24px; 
   border-radius: 5px;
 }
+
+/* --- MOBILE RESPONSIVE --- */
+@media screen and (max-width: 768px) {
+    .champs-title {
+        font-size: 2rem;
+    }
+    .champ-card {
+        width: 100%; /* Fill available space */
+        max-width: 320px; /* Don't exceed original desktop size */
+    }
+}

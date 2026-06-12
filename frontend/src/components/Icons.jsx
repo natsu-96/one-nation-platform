@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import './Icons.css'
-import iconImg from '../assets/icons.jpg'
+import iconImg from '../assets/icons.webp'
 
 const iconsData = [
     {

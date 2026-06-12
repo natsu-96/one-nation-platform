@@ -1,6 +1,6 @@
 import React from 'react';
 import './IconsCard.css';
-import iconPic from "../assets/icon.png"
+import iconPic from "../assets/icon.webp"
 
 function IconsCard({ 
   name, 

@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: row;
     gap: 2.8rem;
-    background-color: #0C641B;
+    background-color: #b7d6af4d;
 }
 .icons-top {
     margin-left: 2.625rem;
@@ -29,15 +29,15 @@
     padding: 12px 24px;
     font-size: 1rem;
     line-height: 100%;
-    color: #000;
+    color: #6b6b6b;
     transition: color 0.2s ease, border-color 0.2s ease;
 }
 .icons-niches li:hover {
-    color: #fff;
+    color: #0C641B;
 }
 .icons-niches li.active-category {
-    color: #226c37;
-    border-bottom: 2px solid #000;
+    color: #0C641B;
+    border-bottom: 2px solid #0C641B;
     font-weight: 600; 
 }
 .icons-filter {
@@ -47,53 +47,29 @@
     margin-top: 1.125rem;
     height: 52px;
 }
-.icons-filter-left {
-    /* max-width: 20.25rem; */
-    border: 2px solid #E3E7EB;
-    border-radius: 6px;
-    display: flex;
-    background-color: #E3E7EB;
-}
-.icons-filter-left button {
-    padding: 10px 18px;
-    border: 0;
-    background-color: #E3E7EB;
-    color: #9b9a9a;
-    font-size: 0.85rem;
-    font-weight: 600;
-    height: 3rem;
-    
-}
-.icons-filter-left button:first-child {
-    border: 0;
-    background-color: #fff;
-    color: #000;
-    border-radius: 12px;
-    box-shadow: 0 9px 20px rgba(0, 0, 0, 0.08);
-}
 .icons-filter-right {
     max-width: 234px;
     width: 100%;
 }
 
 @media (max-width: 768px) {
-  .voting {
+  .icons {
     flex-direction: column;
     margin-top: 1rem;
     gap: 1.5rem;
     padding: 0 16px;
   }
 
-  .voting-top {
+  .icons-top {
     margin-left: 0;
   }
 
-  .voting-top h2 {
+  .icons-top h2 {
     font-size: 2rem;
     letter-spacing: -2%;
   }
 
-  .voting-categories {
+  .icons-niches {
     display: flex;
     overflow-x: auto;
     white-space: nowrap;
@@ -104,37 +80,32 @@
     padding-bottom: 4px;
   }
   
-  .voting-categories::-webkit-scrollbar {
+  .icons-niches::-webkit-scrollbar {
     display: none;
   }
 
-  .voting-categories li {
+  .icons-niches li {
     padding: 10px 16px;
     font-size: 0.9rem;
     flex: 0 0 auto; 
   }
 
-  .voting-filter {
+  .icons-filter {
     margin-left: 0;
-    margin-top: 1rem;
-    flex-direction: column;
-    gap: 12px;
+    align-items: center;
+    flex-direction: row;
+    gap: 2rem;
     height: auto;
+    justify-content: space-evenly;
   }
 
-  .voting-filter-left {
-    width: 100%;
-    justify-content: space-between;
-  }
-
-  .voting-filter-left button {
-    flex: 1;
+  .icons-filter-left {
     text-align: center;
     padding: 10px 8px;
     font-size: 0.8rem;
   }
 
-  .voting-right {
+  .icons-right {
     max-width: 100%;
     width: 100%;
   }

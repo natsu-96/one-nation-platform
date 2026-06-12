@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ArrowLeft, ArrowRight, ChevronLeft } from "lucide-react";
-import defaultAvatar from "../assets/avatar.png"; 
+import defaultAvatar from "../assets/avatar.webp"; 
 import "./TalentDetails.css";
 
 function TalentDetails() {

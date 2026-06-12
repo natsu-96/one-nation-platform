@@ -64,3 +64,33 @@
     display: flex;
     margin-top: 2rem;
 }
+
+/* --- MOBILE RESPONSIVE --- */
+@media screen and (max-width: 768px) {
+    .footer {
+        padding: 2rem 1.5rem; /* Remove the 14rem horizontal padding */
+    }
+    .footer-top {
+        flex-direction: column; /* Stack logo on top of columns */
+        gap: 2.5rem;
+    }
+    .footer-logo {
+        max-width: 100%;
+        text-align: center;
+    }
+    .footer-columns {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on tablet */
+        gap: 2rem;
+    }
+    .bottom-content {
+        text-align: center;
+        line-height: 1.5;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .footer-columns {
+        grid-template-columns: 1fr; /* 1 column on small phones */
+        text-align: center; /* Center footer links */
+    }
+}
