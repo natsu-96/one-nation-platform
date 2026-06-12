@@ -53,10 +53,9 @@
 .modal-close-btn:hover {
     transform: scale(1.1);
 }
-.modal-logo-placeholder {
+.modal-logo-placeholder img{
     width: 80px;
     height: 64px;
-    background-color: #dbdbdb;
     border-radius: 4px;
     margin-bottom: 1.25rem;
 }
@@ -199,6 +198,14 @@
 
 .google-signin-btn:hover {
     background-color: #f9fafb;
+}
+.sign-link {
+    text-align: center;
+    font-size: 0.85rem;
+}
+.sign-link a {
+    color: #0C641B;
+    text-decoration: underline;
 }
 
 /* Simple text inline pseudo divider line setup */

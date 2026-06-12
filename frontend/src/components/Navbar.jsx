@@ -4,17 +4,18 @@ import DashboardDrawer from './DashboardDrawer';
 import { useState, useEffect } from 'react';
 import avatar from '../assets/avatar.webp'
 import { Link } from "react-router-dom";
+import SignupModal from './SignupModal';
 
 function Navbar() {
-  const [loginOpen, setLoginOpen] = useState(false);
+  const [activeModal, setActiveModal] = useState(null);
   const [isDashboardOpen, setIsDashboardOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // New state for mobile menu
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); 
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     setIsLoggedIn(!!token);
-  }, [loginOpen]);
+  }, [activeModal]);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -22,8 +23,9 @@ function Navbar() {
     setIsDashboardOpen(false);
   }
 
-  // Close mobile menu when a link is clicked
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
+
+  const closeModals = () => setActiveModal(null);
 
   return (
     <>
@@ -32,8 +34,6 @@ function Navbar() {
                 <div className="logo-section">
                     <div className="logo"><Link to="/">NC</Link></div>
                 </div>
-                
-                {/* Added 'active' class condition for mobile toggling */}
                 <div className={isMobileMenuOpen ? "nav-links active" : "nav-links"}>
                     <Link to="/voting" onClick={closeMobileMenu}><li>Vote</li></Link>
                     <Link to="/quiz" onClick={closeMobileMenu}><li>Quiz</li></Link>
@@ -48,11 +48,9 @@ function Navbar() {
                                 <img src={avatar} alt="Avatar" className="nav-avatar-icon" />
                             </div>
                         ) : (
-                            <button onClick={() => setLoginOpen(true)}>Sign In</button>
+                            <button onClick={() => setActiveModal('login')}>Sign In</button>
                         )}
                     </div>
-
-                    {/* Hamburger Icon */}
                     <div className="hamburger" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
                         <span className="bar"></span>
                         <span className="bar"></span>
@@ -62,8 +60,14 @@ function Navbar() {
             </div>
         </div>
         <LoginModal 
-                isOpen={loginOpen} 
-                onClose={() => setLoginOpen(false)} 
+                isOpen={activeModal === 'login'} 
+                onClose={closeModals}
+                onSwitchToSignup={() => setActiveModal('signup')} 
+        />
+        <SignupModal 
+            isOpen={activeModal === 'signup'}
+            onClose={closeModals}
+            onSwitchToLogin={() => setActiveModal('login')}
         />
         <DashboardDrawer 
             isOpen={isDashboardOpen} 

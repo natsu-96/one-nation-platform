@@ -181,8 +181,7 @@
 .metric-icon-square {
     width: 44px;
     height: 44px;
-    background-color: #dbdbdb;
-    border-radius: 4px;
+    text-align: center;
 }
 .metric-info {
     display: flex;

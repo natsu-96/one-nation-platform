@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { 
     MoreVertical, X, Link2, Plus, LogOut, ArrowLeft,
-    Users, Clock, Trophy, BarChart3, 
+    Users, Clock, Trophy, BarChart3, Vote, Upload,
     Video, ShieldCheck, Award, Check, ChevronRight, Music, Palette, Monitor
 } from "lucide-react"; 
 import UploadTalentDrawer from "./UploadTalentDrawer"; 
@@ -9,7 +9,6 @@ import defaultAvatar from "../assets/avatar.webp";
 import "./DashboardDrawer.css";
 
 function DashboardDrawer({ isOpen, onClose, onLogout }) {
-    // 🌟 Scaled up state machine: "DASHBOARD", "UPLOAD", "REVIEW", "MANAGE_QUIZ", "PENDING_LIST"
     const [activeView, setActiveView] = useState("DASHBOARD");
     
     const userRole = localStorage.getItem("userRole") || "user";
@@ -22,10 +21,8 @@ function DashboardDrawer({ isOpen, onClose, onLogout }) {
         }
     }, [isOpen]);
 
-    // 🌟 NEW: Aggressive Scroll Lock
     useEffect(() => {
         if (isOpen) {
-            // Lock both body and html to prevent all background scrolling
             document.body.style.overflow = "hidden";
             document.documentElement.style.overflow = "hidden";
         } else {
@@ -52,7 +49,6 @@ function DashboardDrawer({ isOpen, onClose, onLogout }) {
         onLogout();
     };
 
-    // --- REUSABLE INLINE SUB-VIEW HEADER ---
     const SubViewHeader = ({ title }) => (
         <div className="subview-header-ribbon">
             <button className="subview-back-btn" onClick={() => setActiveView("DASHBOARD")}>
@@ -77,7 +73,7 @@ function DashboardDrawer({ isOpen, onClose, onLogout }) {
                     <UploadTalentDrawer onBackToDashboard={() => setActiveView("DASHBOARD")} />
                 )}
 
-                {/* 2. 🛠️ INLINE VIEW: REVIEW UPLOADS */}
+                {/* 2. INLINE VIEW: REVIEW UPLOADS */}
                 {activeView === "REVIEW" && (
                     <div className="subview-layout-wrapper">
                         <SubViewHeader title="Review Submissions" />
@@ -92,7 +88,7 @@ function DashboardDrawer({ isOpen, onClose, onLogout }) {
                     </div>
                 )}
 
-                {/* 3. 🛠️ INLINE VIEW: MANAGE QUIZ */}
+                {/* 3. INLINE VIEW: MANAGE QUIZ */}
                 {activeView === "MANAGE_QUIZ" && (
                     <div className="subview-layout-wrapper">
                         <SubViewHeader title="Quiz Controller" />
@@ -112,7 +108,7 @@ function DashboardDrawer({ isOpen, onClose, onLogout }) {
                     </div>
                 )}
 
-                {/* 4. 🛠️ INLINE VIEW: ALL PENDING APPROVALS */}
+                {/* 4. INLINE VIEW: ALL PENDING APPROVALS */}
                 {activeView === "PENDING_LIST" && (
                     <div className="subview-layout-wrapper">
                         <SubViewHeader title="All 14 Pending Uploads" />
@@ -275,14 +271,14 @@ function DashboardDrawer({ isOpen, onClose, onLogout }) {
                                 <>
                                     <div className="metrics-stack-group">
                                         <div className="metric-card-block">
-                                            <div className="metric-icon-square"></div>
+                                            <div className="metric-icon-square"><Vote size={38}/></div>
                                             <div className="metric-info">
                                                 <span className="metric-value-text">820</span>
                                                 <span className="metric-label-text">Voting power</span>
                                             </div>
                                         </div>
                                         <div className="metric-card-block">
-                                            <div className="metric-icon-square"></div>
+                                            <div className="metric-icon-square"><Upload size={38}/></div>
                                             <div className="metric-info">
                                                 <span className="metric-value-text">1</span>
                                                 <span className="metric-label-text">Uploads</span>
