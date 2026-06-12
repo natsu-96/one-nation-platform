@@ -30,6 +30,7 @@ function Hero() {
                 <Link to="/quiz"><button>Join Quiz</button></Link>
             </div>
         </div>
+    </div>
   )
 }
 
