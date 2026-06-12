@@ -1,0 +1,23 @@
+.icons-container {
+  padding: 24px;
+  max-width: 1280px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+.icons-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 22px;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .icons-container {
+    padding: 12px 0px;
+  }
+
+  .icons-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}

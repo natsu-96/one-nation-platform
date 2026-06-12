@@ -1,0 +1,24 @@
+.voting-container {
+  padding: 24px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* Responsive CSS grid wrapper */
+.vote-grid {
+  display: grid;
+  /* repeat(auto-fill...) automatically calculates how many columns fit on the screen */
+  grid-template-columns: repeat(auto-fill, minmax(286px, 1fr));
+  gap: 22px;
+}
+
+@media (max-width: 768px) {
+  .voting-container {
+    padding: 12px 0px;
+  }
+
+  .vote-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}

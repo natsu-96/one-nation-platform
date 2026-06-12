@@ -1,0 +1,237 @@
+.quiz-zone-page {
+    display: flex;
+    flex-direction: row;
+    margin-top: 2.5rem;
+    gap: 2.8rem;
+}
+
+.quizzing-top {
+    margin-left: 2.rem;
+}
+
+.quizzing-top h2 {
+    margin: 0;
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: -9%;
+    color: #0C641B;
+}
+
+.quizzing-top span {
+    color: #000;
+}
+
+.quizzing-top p {
+    margin: 0;
+    color: #6b6b6b;
+}
+.live-quiz {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+}
+.live-quiz-header {
+    font-size: 1.75rem;
+    font-weight: 600;
+    line-height: 36px;
+}
+.live-quiz-tag {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #6b6b6b;
+    line-height: 24px;
+}
+.live-quiz-card {
+    background: #ffffff;
+    border: 1px solid #c8d3cc;
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 380px;
+    max-width: 385px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin-bottom: 2rem;
+}
+.live-quiz-img {
+    height: 220px;
+    width: 100%;
+}
+.live-quiz-details {
+    background-color: #fff; /* Distinct soft green layout hue accent tint */
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+.live-quiz-title {
+    margin-bottom: 0;
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 28px;
+}
+.live-quiz-description{
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 20px;
+    padding-bottom: 1.5rem;
+}
+.live-quiz-details span{
+    max-width: 79px;
+    height: 28px;
+    background-color: #9dcba8;
+    border: 1px solid #d8eddc;
+    color: #0C641B;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+    border-radius: 4px;
+}
+.quizzing-categories {
+    display: flex;
+    border-bottom: 1px solid #e2ece6; /* Softened slightly to match your UI layout lines better */
+}
+
+.quizzing-categories li {
+    list-style: none;
+    max-width: 153px;
+    padding: 12px 24px;
+    font-size: 1rem;
+    line-height: 100%;
+    color: #6b6b6b; /* Unselected tabs stay grey */
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+.quizzing-categories li:hover {
+    color: #0C641B;
+}
+.quizzing-categories li.active-category {
+    color: #0C641B;
+    border-bottom: 2px solid #0C641B;
+    font-weight: 600; /* Subtle emphasis on the selected text */
+}
+
+.quizzing-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.quizzing-left {
+    display: flex;
+    flex-direction: column;
+    max-width: 1278px;
+    width: 100%;
+}
+
+.quizzing-filter {
+    display: flex;
+    gap: 52.4rem;
+    margin-left: 3.43rem;
+    margin-top: 1.125rem;
+    height: 52px;
+}
+.quizzing-filter-left {
+    border: 2px solid #E3E7EB;
+    background-color: #E3E7EB;
+    border-radius: 6px;
+    display: flex;
+}
+
+.quizzing-filter-left button {
+    padding: 10px 18px;
+    border: 0;
+    background-color: #E3E7EB;
+    color: #9b9a9a;
+    font-size: 0.85rem;
+    font-weight: 600;
+    height: 3rem;
+}
+
+.quizzing-filter-left button:first-child {
+    background-color: #fff;
+    color: #000;
+    border-radius: 6px;
+    box-shadow: 0 9px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* --- MOBILE RESPONSIVE STYLES --- */
+
+@media screen and (max-width: 1024px) {
+    /* Stack the main content and leaderboard vertically on tablets/smaller screens */
+    .quiz-zone-page {
+        flex-direction: column;
+        gap: 2rem;
+        margin-top: 1.5rem;
+    }
+
+    /* Adjust the massive gap in the filter */
+    .quizzing-filter {
+        gap: 1rem;
+        margin-left: 0;
+        justify-content: space-between;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    /* Header adjustments */
+    .quizzing-top {
+        margin-left: 0;
+        text-align: center; /* Center the text for mobile */
+    }
+
+    .quizzing-top h2 {
+        font-size: 2rem;
+    }
+
+    .quizzing-top p {
+        font-size: 0.9rem;
+        padding: 0 1rem; /* Prevent text from touching edges */
+    }
+
+    /* Make categories horizontally scrollable so they don't break the layout */
+    .quizzing-categories {
+        overflow-x: auto;
+        white-space: nowrap;
+        padding-bottom: 5px; /* Room for scrollbar */
+        -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    }
+
+    .quizzing-categories li {
+        padding: 10px 16px;
+        font-size: 0.9rem;
+    }
+
+    /* Live quiz card needs to shrink to fit the screen */
+    .live-quiz {
+        align-items: center; /* Center the card */
+    }
+
+    .live-quiz-header, .live-quiz-tag {
+        text-align: center;
+        padding: 0 1rem;
+    }
+
+    .live-quiz-card {
+        max-width: 100%; /* Take full width of parent up to max constraints */
+        width: 90%;
+    }
+
+    /* Filter adjustments */
+    .quizzing-filter {
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+        margin-top: 1.5rem;
+    }
+
+    .quizzing-filter-left {
+        width: 100%; /* Stretch across screen */
+        justify-content: space-between; /* Space out the buttons */
+    }
+    
+    .quizzing-filter-left button {
+        flex: 1; /* Give buttons equal width */
+        padding: 10px 5px;
+    }
+}

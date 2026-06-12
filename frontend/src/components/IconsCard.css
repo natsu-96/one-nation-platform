@@ -1,0 +1,136 @@
+/* Card Container */
+.icon-card {
+  border-radius: 32px; /* Increased curve matching the UI design */
+  overflow: hidden;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease;
+  width: 100%;
+  max-width: 340px; /* Optional: limit max width for better layout control */
+}
+
+.icon-card:hover {
+  transform: translateY(-4px);
+}
+
+/* --- Top Media Section --- */
+.icon-top {
+  position: relative;
+  width: 100%;
+  height: 280px;
+}
+
+.icon-card-img {
+  width: 100%;
+  height: 280px;
+}
+
+.icon-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Translucent Dual Badge Overlay */
+.position-vote-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(4px);
+  border-radius: 12px;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 2;
+  color: #ffffff;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.badge-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.badge-label {
+  font-size: 10px;
+  font-weight: 500;
+  color: #8c8c8c;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+
+.badge-value {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.badge-divider {
+  width: 1px;
+  height: 24px;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* --- Bottom Content Section --- */
+.card-bottom {
+  background-color: #ffffff;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+.card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.nominate-icon button{
+    max-width: 254px;
+    width: 100%;
+    height: 48px;
+    background-color: #0C641B;
+    color: #ffffff;
+    border: 0;
+    border-radius: 12px;
+}
+.icon-name {
+  margin: 0;
+  color: #000000;
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 28px;
+}
+
+.icon-bio {
+  margin: 0;
+  color: #626D7C;
+  font-size: 0.875rem;
+  line-height: 20px;
+  font-weight: 500;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .icon-card {
+    max-width: 100%;
+    border-radius: 24px;
+  }
+
+  .icon-top, 
+  .icon-card-img {
+    height: 320px; 
+  }
+  
+  .card-bottom {
+    padding: 16px;
+  }
+}

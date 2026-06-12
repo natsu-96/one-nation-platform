@@ -1,3 +1,4 @@
+import Champs from '../components/Champs'
 import CTA from '../components/CTA'
 import Footer from '../components/Footer'
 import Hero from '../components/Hero'
@@ -5,7 +6,7 @@ import Icons from '../components/Icons'
 import Navbar from '../components/Navbar'
 import Quiz from '../components/Quiz'
 import Talents from '../components/Talents'
-import Votes from '../components/Votes'
+// import Votes from '../components/Votes'
 import './Home.css'
 
 function Home() {
@@ -14,9 +15,10 @@ function Home() {
         <Navbar />
         <Hero />
         <Talents />
-        <Votes />
         <Quiz />
+        {/* <Votes /> */}
         <Icons />
+        <Champs />
         <CTA />
         <Footer />
     </>
