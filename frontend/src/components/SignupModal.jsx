@@ -1,31 +1,39 @@
 import React, { useState } from "react";
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5"; 
 import { FcGoogle } from "react-icons/fc";
-import login from "../assets/login.webp"
-import "./LoginModal.css";
+import signup from "../assets/signup.webp"
+import "./LoginModal.css"; 
 
-function LoginModal({ isOpen, onClose, onSwitchToSignup }) {
+function SignupModal({ isOpen, onClose, onSwitchToLogin }) {
+    const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
-    const [keepSignedIn, setKeepSignedIn] = useState(false);
+    const [error, setError] = useState("");
 
     if (!isOpen) return null;
 
-    const handleLoginSubmit = (e) => {
+    const handleSignupSubmit = (e) => {
         e.preventDefault();
-        console.log("Mock login submitted:", { email, password, keepSignedIn });
         
-        // Checks if input email explicitly uses the admin domain or prefix from mock-ups
-        const isUserAdmin = email.toLowerCase().includes("admin");
+        // Ensure passwords match before submitting
+        if (password !== confirmPassword) {
+            setError("Passwords do not match. Please try again.");
+            return;
+        }
         
+        setError(""); // Clear any previous errors
+        console.log("Mock signup submitted:", { name, email, password });
+        
+        // Mock account creation flow
         localStorage.setItem("token", "mock-session-token-xyz");
-        localStorage.setItem("userRole", isUserAdmin ? "admin" : "user");
+        localStorage.setItem("userRole", "user");
         localStorage.setItem("userEmail", email);
 
         onClose();
-        window.location.reload(); // Quick state refresh to push token updates through layout trees
+        window.location.reload(); 
     };
 
     return (
@@ -33,17 +41,32 @@ function LoginModal({ isOpen, onClose, onSwitchToSignup }) {
             <div className="modal-card" onClick={(e) => e.stopPropagation()}>
                 <button className="modal-close-btn" onClick={onClose}>&times;</button>
                 <div className="modal-logo-placeholder">
-                    <img src={login} alt="" />
+                    <img src={signup} alt="" />
                 </div>
-                <h3 className="modal-title">Log in</h3>
+                <h3 className="modal-title">Create an account</h3>
 
-                <form className="modal-form" onSubmit={handleLoginSubmit}>
+                <form className="modal-form" onSubmit={handleSignupSubmit}>
+                    {/* Display validation errors if passwords don't match */}
+                    {error && <div className="error-message" style={{ color: "red", fontSize: "14px", marginBottom: "15px", textAlign: "center" }}>{error}</div>}
+
+                    <div className="input-group">
+                        <label htmlFor="name">Full Name</label>
+                        <input
+                            id="name"
+                            type="text"
+                            placeholder="John Doe"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            required
+                        />
+                    </div>
+
                     <div className="input-group">
                         <label htmlFor="email">Email</label>
                         <input
                             id="email"
                             type="email"
-                            placeholder="hello@123d.one (or admin@nigeriacelebrates.ng)"
+                            placeholder="hello@123d.one"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required
@@ -71,20 +94,23 @@ function LoginModal({ isOpen, onClose, onSwitchToSignup }) {
                         </div>
                     </div>
 
-                    <div className="form-options-row">
-                        <label className="checkbox-container">
+                    <div className="input-group">
+                        <label htmlFor="confirmPassword">Confirm Password</label>
+                        <div className="password-input-wrapper">
                             <input
-                                type="checkbox"
-                                checked={keepSignedIn}
-                                onChange={(e) => setKeepSignedIn(e.target.checked)}
+                                id="confirmPassword"
+                                type={showPassword ? "text" : "password"}
+                                placeholder="••••••••"
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
+                                required
                             />
-                            <span className="checkbox-label">Keep me signed in</span>
-                        </label>
-                        <a href="#forgot" className="forgot-password-link">Forgot password?</a>
+                            {/* The toggle button affects both password fields simultaneously for better UX */}
+                        </div>
                     </div>
 
                     <button type="submit" className="primary-signin-btn">
-                        <span className="btn-icon">➔</span> Sign In
+                        <span className="btn-icon">➔</span> Sign Up
                     </button>
 
                     <div className="divider">or</div>
@@ -92,19 +118,19 @@ function LoginModal({ isOpen, onClose, onSwitchToSignup }) {
                     <button
                         type="button"
                         className="google-signin-btn"
-                        onClick={() => console.log("Google Login Triggered")}
+                        onClick={() => console.log("Google Signup Triggered")}
                     >
-                        <FcGoogle size={20} /> Sign in with Google
+                        <FcGoogle size={20} /> Sign up with Google
                     </button>
 
                     <div className="sign-link">
                         <span>
-                            Don't have an account? {" "}
+                            Already have an account? {" "}
                             <span
                                 style={{ cursor: "pointer", color: "#0C641B", textDecoration: "underline" }}
-                                onClick={onSwitchToSignup}
+                                onClick={onSwitchToLogin}
                             >
-                                Sign up
+                                Log in
                             </span>
                         </span>
                     </div>
@@ -114,4 +140,4 @@ function LoginModal({ isOpen, onClose, onSwitchToSignup }) {
     );
 }
 
-export default LoginModal;
+export default SignupModal;
