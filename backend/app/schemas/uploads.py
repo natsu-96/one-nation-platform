@@ -39,7 +39,7 @@ class PaginatedUploadResponse(BaseModel):
     has_more: bool
 
 class Uploads(UploadBase, table=True):
-    __tablename__ = "Uploads"
+    __tablename__ = "uploads"
 
     upload_id: UUID = Field(default_factory=uuid4, primary_key=True)
     user_id: UUID = Field(foreign_key="users.user_id")

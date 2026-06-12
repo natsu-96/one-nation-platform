@@ -4,7 +4,8 @@ from schemas.votes import Votes
 from schemas.quiz import QuizQuestion
 from schemas.quiz import QuizSession
 from schemas.quiz import QuizScore
-from schemas.votes import Votes
+from schemas.nominees import Nominee
+from schemas.nominees import CompendiumVotes
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.ext.asyncio import create_async_engine
 from sqlalchemy.orm import sessionmaker

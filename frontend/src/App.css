@@ -1,4 +1,7 @@
-
+body {
+  margin: 0 auto;
+  font-family: "Mona Sans", sans-serif;
+}
 button {
   cursor: pointer;
 }

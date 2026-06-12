@@ -24,6 +24,10 @@ function Hero() {
                     allow="autoplay; encrypted-media"
                     allowFullScreen
                 ></iframe>
+            <div className="hero-btns">
+                <Link to="/upload"><button> Upload Talent</button></Link>
+                <Link to="/voting"><button>Vote Now</button></Link>
+                <Link to="/quiz"><button>Join Quiz</button></Link>
             </div>
         </div>
   )
