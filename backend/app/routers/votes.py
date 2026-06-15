@@ -66,14 +66,14 @@ from uuid import UUID
 import uuid # <-- ADDED THIS FOR THE FAKE USER
 from fastapi import APIRouter, Depends, HTTPException, status, Request, Form
 from sqlalchemy.ext.asyncio import AsyncSession
-from services.limiter import limiter
-from services.db import get_async_session
-from services.auth import Require_scope, Scopes
-from services.vote_utils import verify_account_age
+from app.services.limiter import limiter
+from app.services.db import get_async_session
+from app.services.auth import Require_scope, Scopes
+from app.services.vote_utils import verify_account_age
 from sqlmodel import select
-from schemas.user import CurrentUser
-from schemas.uploads import Uploads
-from schemas.votes import Votes
+from app.schemas.user import CurrentUser
+from app.schemas.uploads import Uploads
+from app.schemas.votes import Votes
 
 votes_router = APIRouter(prefix="/api/v1/votes", tags=["Handles voting operations"])
 

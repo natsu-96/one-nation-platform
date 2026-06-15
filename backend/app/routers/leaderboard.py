@@ -4,7 +4,7 @@ from schemas.votes import Votes
 from sqlmodel import select
 from schemas.uploads import Categories, UploadResponse, Uploads
 from typing import List
-from services.db import get_async_session
+from app.services.db import get_async_session
 
 leaderboard_router = APIRouter(prefix="/api/v1/leaderboard", tags=["Public Leaderboards"])
 

@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Depends, status, HTTPException, Form, UploadFile, File
 from fastapi.concurrency import run_in_threadpool
-from schemas.nominees import Nominee, NomineeResponse, NomineeCategories, CompendiumVotes
-from schemas.user import CurrentUser
-from services.auth import get_current_user
-from services.db import get_async_session
-from services.uploads import validate_media_constraints
+from app.schemas.nominees import Nominee, NomineeResponse, NomineeCategories, CompendiumVotes
+from app.schemas.user import CurrentUser
+from app.services.auth import get_current_user
+from app.services.db import get_async_session
+from app.services.uploads import validate_media_constraints
 from sqlmodel import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
 from uuid import UUID

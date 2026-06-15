@@ -47,15 +47,15 @@
 import cloudinary
 from fastapi import FastAPI, Depends  # 🎯 FIXED: Re-added Depends here
 from fastapi.middleware.cors import CORSMiddleware
-from services.db import init_db, get_async_session
-from services.auth import settings
-from services.limiter import limiter
-from routers.auth import auth_router
-from routers.uploads import uploads_router
-from routers.leaderboard import leaderboard_router
-from routers.votes import votes_router
-from routers.nominee import nominees_router
-from routers.quiz import quiz_router
+from app.services.db import init_db, get_async_session
+from app.services.auth import settings
+from app.services.limiter import limiter
+from app.routers.auth import auth_router
+from app.routers.uploads import uploads_router
+from app.routers.leaderboard import leaderboard_router
+from app.routers.votes import votes_router
+from app.routers.nominee import nominees_router
+from app.routers.quiz import quiz_router
 from contextlib import asynccontextmanager
 from sqlalchemy.ext.asyncio import AsyncSession
 from slowapi import _rate_limit_exceeded_handler

@@ -1,8 +1,8 @@
 from typing import Annotated
 from fastapi import APIRouter, Depends, status, HTTPException
-from schemas.user import UserCreate, UserInDb, UserResponse, CurrentUser
-from services.auth import create_access_token, pwd_context, generate_referral_code, get_current_user
-from services.db import get_async_session
+from app.schemas.user import UserCreate, UserInDb, UserResponse, CurrentUser
+from app.services.auth import create_access_token, pwd_context, generate_referral_code, get_current_user
+from app.services.db import get_async_session
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi.security import OAuth2PasswordRequestForm

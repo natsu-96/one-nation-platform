@@ -11,7 +11,7 @@ from fastapi.security import OAuth2PasswordBearer
 from dotenv import load_dotenv
 from fastapi import Depends, HTTPException, status
 from enum import StrEnum
-from schemas.user import Roles, UserInDb, CurrentUser
+from app.schemas.user import Roles, UserInDb, CurrentUser
 
 load_dotenv()
 

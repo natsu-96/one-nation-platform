@@ -6,11 +6,11 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import APIRouter, status, Form, UploadFile, File, Depends, HTTPException
 from fastapi.responses import RedirectResponse
 from typing import Optional
-from services.uploads import validate_media_constraints
-from schemas.uploads import UploadResponse, Categories, Uploads, PaginatedUploadResponse
-from schemas.user import CurrentUser
-from services.db import get_async_session
-from services.auth import Scopes, Require_scope
+from app.services.uploads import validate_media_constraints
+from app.schemas.uploads import UploadResponse, Categories, Uploads, PaginatedUploadResponse
+from app.schemas.user import CurrentUser
+from app.services.db import get_async_session
+from app.services.auth import Scopes, Require_scope
 
 
 uploads_router = APIRouter(prefix="/api/v1/talent", tags=["Handles Talent Submissions"])

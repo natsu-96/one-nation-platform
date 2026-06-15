@@ -1,6 +1,6 @@
 from datetime import datetime, timezone, timedelta
 from fastapi import HTTPException, status, Depends
-from schemas.user import CurrentUser
+from app.schemas.user import CurrentUser
 from .auth import Scopes, Require_scope
 
 MIN_ACCOUNT_AGE = 24

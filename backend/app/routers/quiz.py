@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-from schemas.quiz import (
+from app.schemas.quiz import (
     QuizQuestion, 
     QuizScore, 
     QuizSession,
@@ -7,11 +7,11 @@ from schemas.quiz import (
     QuizCategories
 )
 from uuid import UUID, uuid4
-from services.db import get_async_session
-from services.auth import get_current_user
+from app.services.db import get_async_session
+from app.services.auth import get_current_user
 from typing import List
 from sqlalchemy.ext.asyncio import AsyncSession
-from schemas.user import CurrentUser
+from app.schemas.user import CurrentUser
 from sqlmodel import select, func
 from pydantic import BaseModel, Field
 

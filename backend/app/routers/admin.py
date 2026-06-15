@@ -4,11 +4,11 @@ from typing import List
 from uuid import UUID
 from pydantic import BaseModel, Field
 from sqlalchemy.ext.asyncio import AsyncSession
-from services.db import get_async_session
-from services.auth import Require_scope, ROLE_PERMISSIONS
-from schemas.uploads import Uploads, UploadResponse
-from schemas.quiz import QuizSession, QuizQuestion
-from schemas.nominees import NomineeResponse, Nominee
+from app.services.db import get_async_session
+from app.services.auth import Require_scope, ROLE_PERMISSIONS
+from app.schemas.uploads import Uploads, UploadResponse
+from app.schemas.quiz import QuizSession, QuizQuestion
+from app.schemas.nominees import NomineeResponse, Nominee
 
 
 admin_router = APIRouter(prefix="/api/v1/admin", tags=["Admin Backoffice Control"])
