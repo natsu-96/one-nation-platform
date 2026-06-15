@@ -1,5 +1,4 @@
-import './Quiz.css'
-import quizImg from "../assets/quizImg.webp"
+import './Quiz.css';
 
 function Quiz() {
   return (
@@ -15,7 +14,7 @@ function Quiz() {
                 <button className="quiz-content-btn">Join Quiz</button>
             </div>
             <div className="quiz-card-2">
-                <img src={quizImg}/>
+                <img src="https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?w=500" alt="Quiz" />
             </div>
         </div>
       </div>
@@ -23,4 +22,4 @@ function Quiz() {
   )
 }
 
-export default Quiz
+export default Quiz;
