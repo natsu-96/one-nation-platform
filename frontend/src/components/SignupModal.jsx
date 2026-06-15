@@ -32,7 +32,7 @@ function SignupModal({ isOpen, onClose, onSwitchToLogin }) {
 
         try {
             // 🌟 1. Fire JSON payload straight to your FastAPI registration endpoint
-            const response = await fetch("http://localhost:8000/api/v1/auth/register", {
+            const response = await fetch("https://one-nation-platform.onrender.com/api/v1/auth/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

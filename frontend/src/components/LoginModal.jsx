@@ -24,7 +24,7 @@ function LoginModal({ isOpen, onClose, onSwitchToSignup }) {
 
         try {
             // 🌟 1. Ship a form-encoded payload straight to your live FastAPI OAuth2 login endpoint
-            const response = await fetch("http://localhost:8000/api/v1/auth/login", {
+            const response = await fetch("https://one-nation-platform.onrender.com/api/v1/auth/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded",
