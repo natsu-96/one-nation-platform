@@ -16,25 +16,33 @@ function SignupModal({ isOpen, onClose, onSwitchToLogin }) {
     if (!isOpen) return null;
 
     const handleSignupSubmit = (e) => {
-        e.preventDefault();
-        
-        // Ensure passwords match before submitting
-        if (password !== confirmPassword) {
-            setError("Passwords do not match. Please try again.");
-            return;
-        }
-        
-        setError(""); // Clear any previous errors
-        console.log("Mock signup submitted:", { name, email, password });
-        
-        // Mock account creation flow
-        localStorage.setItem("token", "mock-session-token-xyz");
-        localStorage.setItem("userRole", "user");
-        localStorage.setItem("userEmail", email);
+    e.preventDefault();
+    
+    // Ensure passwords match before submitting
+    if (password !== confirmPassword) {
+        setError("Passwords do not match. Please try again.");
+        return;
+    }
+    
+    setError(""); // Clear any previous errors
+    console.log("Mock signup submitted:", { name, email, password });
+    
+    // Create a fallback avatar URL using Dicebear since we're mocking it here
+    const generatedAvatar = `https://api.dicebear.com/7.x/bottts/svg?seed=${encodeURIComponent(name || "default")}`;
 
-        onClose();
-        window.location.reload(); 
-    };
+    // Mock account creation flow
+    localStorage.setItem("token", "mock-session-token-xyz");
+    localStorage.setItem("userRole", "user");
+    localStorage.setItem("userEmail", email);
+    
+    // 🎯 FIX: Explicitly pass the local state variables and generated avatar 
+    // instead of referencing an undefined 'data' object
+    localStorage.setItem("userAvatar", generatedAvatar);
+    localStorage.setItem("username", name || "Kim");
+
+    onClose();
+    window.location.reload(); 
+};
 
     return (
         <div className="modal-overlay" onClick={onClose}>

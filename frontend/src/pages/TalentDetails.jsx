@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ArrowLeft, ArrowRight, ChevronLeft } from "lucide-react";
@@ -9,13 +10,20 @@ function TalentDetails() {
   const navigate = useNavigate();
   const [commentText, setCommentText] = useState("");
   const [activeTab, setActiveTab] = useState("Recent");
+  
+  const [isVoting, setIsVoting] = useState(false);
+  const [voteMessage, setVoteMessage] = useState("");
 
   const candidateData = location.state?.card;
 
+  const uploadId = candidateData?.id; 
   const title = candidateData?.title || "Naija Soul – Original Afrobeat";
   const description = candidateData?.description || "Music should be listened to and shared for everyone to enjoy";
   const rank = candidateData?.rank || "1";
-  const votes = candidateData?.votes || 12440;
+  
+  // 1. FIXED: Converted static votes into a reactive State hook
+  const [voteCount, setVoteCount] = useState(candidateData?.votes || 12440);
+  
   const imageSource = candidateData?.image || defaultAvatar;
   const creatorName = candidateData?.creator?.name || "Kim";
   const creatorAvatar = candidateData?.creator?.avatar || defaultAvatar;
@@ -27,6 +35,46 @@ function TalentDetails() {
     { id: 4, name: "Ahmed", votes: "1,743 Votes", avatar: defaultAvatar },
     { id: 5, name: "Anjola", votes: "482 Votes", avatar: defaultAvatar }
   ];
+
+  const handleVote = async () => {
+    setIsVoting(true); 
+    setVoteMessage("");
+
+    try {
+      const formData = new FormData();
+      formData.append("upload_id", "550e8400-e29b-41d4-a716-446655440000");
+
+      const response = await fetch("http://127.0.0.1:8000/api/v1/votes/cast", {
+        method: "POST",
+        body: formData, 
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setVoteMessage(data.message || "Your vote has been cast!");
+        
+        // 1. Calculate the exact next number cleanly upfront
+        const nextVoteCount = voteCount + 1;
+        
+        // 2. Save that exact target number to browser memory
+        const storageKey = `vote_count_${uploadId || "550e8400-e29b-41d4-a716-446655440000"}`;
+        localStorage.setItem(storageKey, nextVoteCount);
+        
+        // 3. Update the UI state exactly once
+        setVoteCount(nextVoteCount);
+      } else {
+        console.error("Backend Error Details:", data);
+        setVoteMessage("The server rejected the vote.");
+      }
+
+    } catch (error) {
+      console.error("Network Error Details:", error);
+      setVoteMessage("Network error. Make sure the backend is running.");
+    } finally {
+      setIsVoting(false);
+    }
+  };
 
   const handleCommentSubmit = (e) => {
     e.preventDefault();
@@ -95,13 +143,29 @@ function TalentDetails() {
             </div>
             <div className="stat-metric-cell alignment-right">
               <span className="stat-cell-title">VOTES</span>
-              <span className="stat-cell-value">{votes.toLocaleString()}</span>
+              {/* 3. FIXED: Pointed UI here to render the stateful count variable */}
+              <span className="stat-cell-value">{voteCount.toLocaleString()}</span>
             </div>
           </div>
           <div className="talent-primary-actions-stack">
-            <button type="button" className="details-vote-action-btn">Vote</button>
+            <button 
+              type="button" 
+              className="details-vote-action-btn"
+              onClick={handleVote}
+              disabled={isVoting}
+              style={{ opacity: isVoting ? 0.7 : 1 }}
+            >
+              {isVoting ? "Voting..." : "Vote"}
+            </button>
             <button type="button" className="details-share-action-btn">Share</button>
           </div>
+
+          {voteMessage && (
+            <p style={{ color: voteMessage.includes("Error") || voteMessage.includes("rejected") || voteMessage.includes("Network") ? "red" : "green", marginTop: "10px", fontSize: "14px", fontWeight: "bold" }}>
+              {voteMessage}
+            </p>
+          )}
+
           <div className="supporters-leaderboard-card">
             <div className="leaderboard-header-row">
               <h3>Supporters</h3>

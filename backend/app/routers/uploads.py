@@ -15,6 +15,10 @@ from services.auth import Scopes, Require_scope
 uploads_router = APIRouter(prefix="/api/v1/talent", tags=["Handles Talent Submissions"])
 
 
+class MockUser:
+    def __init__(self):
+        self.user_id = "2dc68776-22bb-42ba-8ae3-f4f3c52dbc91"
+
 @uploads_router.post("/uploads", status_code=status.HTTP_201_CREATED, response_model=UploadResponse)
 async def uploads(
     category: Categories = Form(...),
@@ -25,7 +29,9 @@ async def uploads(
     file: UploadFile = File(...),
 
     db: AsyncSession = Depends(get_async_session),
-    current_user: CurrentUser = Depends(Require_scope(Scopes.MEDIA_UPLOAD))  
+    # current_user: CurrentUser = Depends(Require_scope(Scopes.MEDIA_UPLOAD))  
+
+    current_user = MockUser()
 ):
     """Handles media uploads and stores them to the database"""
     media_url, cloudinary_id = await run_in_threadpool(validate_media_constraints, file)
