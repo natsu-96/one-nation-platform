@@ -131,7 +131,7 @@ function LiveQuizPlay({ liveQuiz, onExit }) {
                             <div className="live-stream-badge">● LIVE STREAM</div>
                             <iframe 
                                 className="embedded-video-player"
-                                src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1" 
+                                src="https://youtube.com/embed/zPTM64mZkkU?si=PV-MY2mGcvMe2Q7J" 
                                 title="Live Quiz Presenter Feed"
                                 frameBorder="0"
                                 allow="autoplay; encrypted-media"
