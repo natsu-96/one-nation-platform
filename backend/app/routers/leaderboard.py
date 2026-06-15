@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, status, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.schemas.votes import Votes
 from sqlmodel import select
-from schemas.uploads import Categories, UploadResponse, Uploads
+from app.schemas.uploads import Categories, UploadResponse, Uploads
 from typing import List
 from app.services.db import get_async_session
 
