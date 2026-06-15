@@ -14,19 +14,27 @@ function LoginModal({ isOpen, onClose, onSwitchToSignup }) {
     if (!isOpen) return null;
 
     const handleLoginSubmit = (e) => {
-        e.preventDefault();
-        console.log("Mock login submitted:", { email, password, keepSignedIn });
-        
-        // Checks if input email explicitly uses the admin domain or prefix from mock-ups
-        const isUserAdmin = email.toLowerCase().includes("admin");
-        
-        localStorage.setItem("token", "mock-session-token-xyz");
-        localStorage.setItem("userRole", isUserAdmin ? "admin" : "user");
-        localStorage.setItem("userEmail", email);
+    e.preventDefault();
+    console.log("Mock login submitted:", { email, password, keepSignedIn });
+    
+    // Checks if input email explicitly uses the admin domain or prefix from mock-ups
+    const isUserAdmin = email.toLowerCase().includes("admin");
+    
+    // 🎯 FIX: Extract a usable username out of the email string (e.g., "john" from "john@email.com")
+    const fallbackUsername = email.split("@")[0];
+    const generatedAvatar = `https://api.dicebear.com/7.x/bottts/svg?seed=${encodeURIComponent(fallbackUsername)}`;
+    
+    localStorage.setItem("token", "mock-session-token-xyz");
+    localStorage.setItem("userRole", isUserAdmin ? "admin" : "user");
+    localStorage.setItem("userEmail", email);
+    
+    // 🎯 FIX: Remove the undefined 'data' references and use our local fallback variables
+    localStorage.setItem("userAvatar", generatedAvatar);
+    localStorage.setItem("username", fallbackUsername || "Kim");
 
-        onClose();
-        window.location.reload(); // Quick state refresh to push token updates through layout trees
-    };
+    onClose();
+    window.location.reload(); // Quick state refresh to push token updates through layout trees
+};
 
     return (
         <div className="modal-overlay" onClick={onClose}>

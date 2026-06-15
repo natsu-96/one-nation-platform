@@ -111,3 +111,123 @@
 .form-input-stack select option[value=""] {
     color: #9ca3af;
 }
+/* File Upload Box Container Setup */
+.file-dropzone-container {
+    border: 2px dashed #d1d5db;
+    border-radius: 12px;
+    padding: 30px 20px;
+    text-align: center;
+    background-color: #fafafa;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* State when hovering a dragged file directly over the box */
+.file-dropzone-container.dragging-active {
+    border-color: #0c641b;
+    background-color: #f0fdf4;
+}
+
+/* State when a file has been locked in */
+.file-dropzone-container.has-file {
+    border-style: solid;
+    border-color: #0c641b;
+    background-color: #ffffff;
+}
+
+.dropzone-cloud-icon {
+    color: #9ca3af;
+    margin-bottom: 12px;
+}
+
+.file-dropzone-container:hover .dropzone-cloud-icon {
+    color: #0c641b;
+}
+
+.dropzone-main-text {
+    font-size: 14px;
+    color: #4b5563;
+    margin: 0 0 4px 0;
+}
+
+.dropzone-main-text span {
+    color: #0c641b;
+    font-weight: 600;
+}
+
+.dropzone-sub-text {
+    font-size: 12px;
+    color: #9ca3af;
+    margin: 0;
+}
+
+/* Loaded file display row structure */
+.dropzone-file-state {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 16px;
+    text-align: left;
+}
+
+.file-type-icon {
+    color: #0c641b;
+    background-color: #f0fdf4;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.file-details-meta {
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.file-name-text {
+    font-size: 14px;
+    font-weight: 500;
+    color: #1f2937;
+    margin: 0 0 2px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.file-size-text {
+    font-size: 12px;
+    color: #6b7280;
+    margin: 0;
+}
+
+.remove-file-badge {
+    background: none;
+    border: 1px solid #d1d5db;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #374151;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.remove-file-badge:hover {
+    background-color: #f3f4f6;
+    color: #dc2626;
+    border-color: #fca5a5;
+}
+
+/* Custom layout error notification block */
+.error-message-banner {
+    color: #b91c1c;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #fee2e2;
+    border-radius: 6px;
+    background-color: #fef2f2;
+    font-size: 14px;
+}
