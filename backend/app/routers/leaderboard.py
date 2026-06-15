@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, status, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
-from schemas.votes import Votes
+from app.schemas.votes import Votes
 from sqlmodel import select
 from schemas.uploads import Categories, UploadResponse, Uploads
 from typing import List

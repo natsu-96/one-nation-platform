@@ -6,8 +6,8 @@ from app.services.db import get_async_session
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi.security import OAuth2PasswordRequestForm
-from schemas.uploads import Uploads
-from schemas.quiz import QuizScore
+from app.schemas.uploads import Uploads
+from app.schemas.quiz import QuizScore
 
 auth_router = APIRouter(prefix="/api/v1/auth", tags=["Authentication and Registration"])
 
