@@ -25,6 +25,7 @@ class AppSettings(BaseSettings):
     cloudinary_name: str = os.getenv("CLOUDINARY_NAME")
     cloudinary_key: str = os.getenv("CLOUDINARY_KEY")
     api_secret: str = os.getenv("API_SECRET")
+    db_url: str = os.getenv("DB_URL")
 
 
     model_config = SettingsConfigDict(env_file="app/.env", env_file_encoding="utf-8")
@@ -105,20 +106,36 @@ def get_current_user(token: str = Depends(oauth_context)) -> CurrentUser:
 
 
 
+# Inside services/auth.py
 class Require_scope:
     def __init__(self, required_scope: Scopes):
         self.required_scope = required_scope
     
-    def __call__(self, current_user: UserInDb = Depends(get_current_user)):
-        allowed_scopes = ROLE_PERMISSIONS.get(current_user.role, [])
+    def __call__(self, current_user: CurrentUser = Depends(get_current_user)) -> CurrentUser:
+        # 🌟 FIX: Extract the raw string value of the role to prevent enum/string lookup mismatches
+        user_role_key = current_user.role.value if hasattr(current_user.role, "value") else str(current_user.role)
+        
+        # Pull matching scopes cleanly from your permission matrix
+        allowed_scopes = ROLE_PERMISSIONS.get(user_role_key, [])
 
-        if self.required_scope not in allowed_scopes:
+        # If it doesn't match directly, fall back to checking the Enum object keys explicitly
+        if not allowed_scopes:
+            for enum_role, scopes_list in ROLE_PERMISSIONS.items():
+                if str(enum_role) == user_role_key:
+                    allowed_scopes = scopes_list
+                    break
+
+        # Convert the target scope to its raw string value for a reliable comparison
+        target_scope_value = self.required_scope.value if hasattr(self.required_scope, "value") else str(self.required_scope)
+        string_allowed_scopes = [s.value if hasattr(s, "value") else str(s) for s in allowed_scopes]
+
+        if target_scope_value not in string_allowed_scopes:
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN,
-                detail=professors_only_msg(self.required_scope)
+                detail=f"Action forbidden. Your role group parameters lack the required '{target_scope_value}' scope clearance."
             )
         
         return current_user
     
 def professors_only_msg(scope: Scopes):
-    return f"Action forbidden. Requires '{scope.value}' permission"
+    return f"Action forbidden. Your role group parameters lack the required '{scope.value}' scope clearance."

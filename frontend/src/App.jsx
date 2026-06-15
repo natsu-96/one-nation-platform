@@ -1,4 +1,4 @@
-import { div } from 'framer-motion/client';
+// import { div } from 'framer-motion/client';
 import './App.css'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import React, { Suspense, lazy } from 'react';

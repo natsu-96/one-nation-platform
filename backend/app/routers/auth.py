@@ -59,31 +59,56 @@ async def signup(user: UserCreate, session: AsyncSession = Depends(get_async_ses
     return db_user
     
 
-@auth_router.post("/login")
-async def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()], session: AsyncSession = Depends(get_async_session)):
-    """Handles Login and JWT creation"""
-    username = form_data.username
-    password = form_data.password
+@auth_router.post("/login", status_code=status.HTTP_200_OK)
+async def login_user(
+    form_data: OAuth2PasswordRequestForm = Depends(),
+    db: AsyncSession = Depends(get_async_session)
+):
+    """
+    Authenticates a user, verifies credentials against Postgres, 
+    and returns a cryptographically secure JWT identity bearer token.
+    """
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Incorrect email or password.",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
 
-    user_stmt = select(UserInDb).where(UserInDb.username == username)
-    results = await session.execute(user_stmt)
-    user = results.scalar_one_or_none()
+    try:
+        stmt = select(UserInDb).where(UserInDb.email == form_data.username.strip().lower())
+        result = await db.execute(stmt)
+        user_record = result.scalar_one_or_none()
 
-    if not user or not pwd_context.verify(password, user.hashed_pass):
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED, 
-            detail="Incorrect username or password",
-            headers={"WWW-Authenticate": "Bearer"}
-        )
-    
-    token_payload = {
-        "sub": str(user.user_id),
-        "role": user.role
+        if not user_record:
+            raise credentials_exception
+
+        is_password_valid = pwd_context.verify(form_data.password, user_record.hashed_pass)
+        if not is_password_valid:
+            raise credentials_exception
+
+        token_payload = {
+            "sub": str(user_record.user_id), 
+            "role": user_record.role.value if hasattr(user_record.role, "value") else str(user_record.role)
         }
 
-    token = create_access_token(token_payload)
+        access_token = create_access_token(payload=token_payload)
 
-    return {"access_token": token, "token_type": "bearer"}
+        return {
+            "access_token": access_token,
+            "token_type": "bearer",
+            "username": user_record.username,
+            "role": user_record.role.value if hasattr(user_record.role, "value") else str(user_record.role),
+        }
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"❌ AUTHENTICATION PIPELINE CRASHED: {str(e)}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Internal authentication system failure: {str(e)}"
+        )
+    
 
 @auth_router.get("/arena/dashboard", status_code=status.HTTP_200_OK)
 async def get_user_arena_dashboard(
@@ -94,6 +119,17 @@ async def get_user_arena_dashboard(
     Returns profile information combined with specific user statistics 
     (Total talent uploads and quiz history) to populate the My Arena view.
     """
+    # 🌟 FIXED: Query the full user profile data out of your live Supabase table
+    user_stmt = select(UserInDb).where(UserInDb.user_id == current_user.user_id)
+    user_exec = await session.execute(user_stmt)
+    user_record = user_exec.scalar_one_or_none()
+
+    if not user_record:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Authenticated user profile context could not be located."
+        )
+
     # 1. Fetch user's talent submission history count
     upload_stmt = select(Uploads).where(Uploads.user_id == current_user.user_id)
     upload_exec = await session.execute(upload_stmt)
@@ -104,13 +140,15 @@ async def get_user_arena_dashboard(
     quiz_exec = await session.execute(quiz_stmt)
     user_scores = quiz_exec.scalars().all()
     
+    # 🌟 FIXED: References full, real metadata properties straight out of user_record database model instance
     return {
         "user": {
-            "user_id": current_user.user_id,
-            "username": current_user.username,
-            "email": current_user.email,
-            "role": current_user.role,
-            "referral_code": current_user.referral_code,
+            "user_id": user_record.user_id,
+            "username": user_record.username,
+            "email": user_record.email,
+            "role": user_record.role.value if hasattr(user_record.role, "value") else str(user_record.role),
+            "referral_code": user_record.referral_code,
+            "avatar": getattr(user_record, "avatar", "")
         },
         "stats": {
             "total_uploads": len(user_uploads),

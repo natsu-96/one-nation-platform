@@ -6,6 +6,7 @@ import cloudinary.uploader
 from fastapi import UploadFile, HTTPException, status
 from moviepy import VideoFileClip
 from .auth import settings
+from typing import Tuple
 
 ALLOWED_MIME_TYPES = {
     "image/jpeg": "image",
@@ -20,7 +21,8 @@ MAX_VIDEO_SIZE = 50 * 1024 * 1024
 MAX_VIDEO_DURATION = 90.0
 
 
-def validate_media_constraints(file: UploadFile) -> str:
+# 🌟 FIXED: Updated the hint signature to Tuple[str, str] to prevent unpacking crashes
+def validate_media_constraints(file: UploadFile) -> Tuple[str, str]:
     mime_type = file.content_type
 
     if mime_type not in ALLOWED_MIME_TYPES:
@@ -28,7 +30,6 @@ def validate_media_constraints(file: UploadFile) -> str:
             status_code=status.HTTP_415_UNSUPPORTED_MEDIA_TYPE,
             detail=f"Unsupported type {mime_type}. Only media of types '.mp4', '.mov', 'png', 'jpeg', 'jpg' are allowed"
         )
-    
 
     media_class = ALLOWED_MIME_TYPES[mime_type]
 
@@ -49,7 +50,8 @@ def validate_media_constraints(file: UploadFile) -> str:
         )
     
     if media_class == "video":
-        with tempfile.NamedTemporaryFile(delete=False, suffix=os.path.splitext(file.filename)[1]) as temp_file:
+        suffix = os.path.splitext(file.filename)[1] if file.filename else ".mp4"
+        with tempfile.NamedTemporaryFile(delete=False, suffix=suffix) as temp_file:
             try:
                 file.file.seek(0)
                 temp_file.write(file.file.read())
@@ -87,10 +89,14 @@ def validate_media_constraints(file: UploadFile) -> str:
         secure_url = upload_result.get("secure_url")
         cloudinary_public_id = upload_result.get("public_id")
 
+        if not secure_url or not cloudinary_public_id:
+            raise Exception("Cloudinary processing pipeline returned incomplete data metadata properties.")
+
         return secure_url, cloudinary_public_id
     
     except Exception as e:
+        print(f"❌ CLOUDINARY UPLOAD DISPATCH ERROR: {str(e)}")
         raise HTTPException(
             status_code=status.HTTP_502_BAD_GATEWAY,
-            detail="Media storage upload failed. Please try again."
+            detail=f"Media storage upload failed: {str(e)}"
         )

@@ -64,7 +64,7 @@ class UserBase(SQLModel):
     username: str = Field(unique=True)
     email: EmailStr
     # 🎯 Part of the base schema so it serializes to the frontend automatically
-    avatar: Optional[str] = ""
+    # avatar: Optional[str] = ""
 
 
 class UserCreate(UserBase):
@@ -95,11 +95,11 @@ class UserInDb(UserBase, table=True):
     referred_by: Optional[UUID] = Field(default=None, foreign_key="users.user_id")
     role: Roles = Field(default=Roles.USER, index=True)
     hashed_pass: str 
-    created_at: datetime = Field(default_factory=lambda : datetime.now(timezone.utc))
+    created_at: datetime = Field(default_factory=datetime.utcnow)
     
     # 🎯 THE HANDS-OFF AUTOMATION HOOK:
     # SQLModel uses this default_factory lifecycle to read the incoming record name context, 
     # safe-encode it, and automatically inject the DiceBear URL straight into the database field.
-    avatar: Optional[str] = Field(
-        default_factory=lambda ctx: f"https://api.dicebear.com/7.x/bottts/svg?seed={urllib.parse.quote_plus(ctx.get('username', 'default'))}"
-    )
+    # avatar: Optional[str] = Field(
+    #     default_factory=lambda ctx: f"https://api.dicebear.com/7.x/bottts/svg?seed={urllib.parse.quote_plus(ctx.get('username', 'default'))}"
+    # )

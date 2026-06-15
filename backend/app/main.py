@@ -105,4 +105,4 @@ app.include_router(nominees_router)
 
 @app.get("/health")
 async def health_check(db: AsyncSession = Depends(get_async_session)):
-    return {"status": "healthy", "database": "async_sqlite_active"}
+    return {"status": "healthy", "database": "supabase_async_postgres_active"}

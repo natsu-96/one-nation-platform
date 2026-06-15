@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5"; 
 import { FcGoogle } from "react-icons/fc";
-import signup from "../assets/signup.webp"
+import signup from "../assets/signup.webp";
 import "./LoginModal.css"; 
 
 function SignupModal({ isOpen, onClose, onSwitchToLogin }) {
@@ -11,51 +11,82 @@ function SignupModal({ isOpen, onClose, onSwitchToLogin }) {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
+    
+    // 🌟 FIXED: Added missing orchestration states to track live network flights
+    const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
 
     if (!isOpen) return null;
 
-    const handleSignupSubmit = (e) => {
-    e.preventDefault();
-    
-    // Ensure passwords match before submitting
-    if (password !== confirmPassword) {
-        setError("Passwords do not match. Please try again.");
-        return;
-    }
-    
-    setError(""); // Clear any previous errors
-    console.log("Mock signup submitted:", { name, email, password });
-    
-    // Create a fallback avatar URL using Dicebear since we're mocking it here
-    const generatedAvatar = `https://api.dicebear.com/7.x/bottts/svg?seed=${encodeURIComponent(name || "default")}`;
+    const handleSignupSubmit = async (e) => {
+        e.preventDefault();
+        setError(""); 
 
-    // Mock account creation flow
-    localStorage.setItem("token", "mock-session-token-xyz");
-    localStorage.setItem("userRole", "user");
-    localStorage.setItem("userEmail", email);
-    
-    // 🎯 FIX: Explicitly pass the local state variables and generated avatar 
-    // instead of referencing an undefined 'data' object
-    localStorage.setItem("userAvatar", generatedAvatar);
-    localStorage.setItem("username", name || "Kim");
+        // 🎯 VALIDATION 1: Client-side password alignment check
+        if (password !== confirmPassword) {
+            setError("Passwords do not match. Please try again.");
+            return;
+        }
 
-    onClose();
-    window.location.reload(); 
-};
+        setIsLoading(true);
+
+        try {
+            // 🌟 1. Fire JSON payload straight to your FastAPI registration endpoint
+            const response = await fetch("http://localhost:8000/api/v1/auth/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    username: name.trim(),  // Maps 'name' to the UserCreate schema's 'username' field
+                    email: email.trim().toLowerCase(),
+                    password: password,
+                    referred_by: null       // Explicit fallback for optional referral codes
+                }),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                // If backend throws a 400 (e.g. Email already exists), catch the message detail cleanly
+                throw new Error(data.detail || "Account creation failed validation.");
+            }
+
+            // 🌟 2. Registration is successful! 
+            // Instead of leaving the user in limbo, automatically route them to the login drawer layout view
+            console.log("🎉 User account created cleanly in Supabase:", data);
+            alert("Registration successful! Please log in with your credentials.");
+            
+            // Close signup context states and slide open the matching login viewport panel
+            onClose();
+            if (typeof onSwitchToLogin === "function") {
+                onSwitchToLogin();
+            }
+
+        } catch (err) {
+            console.error("Registration dispatch failure:", err.message);
+            setError(err.message || "An unexpected network disruption occurred.");
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
     return (
         <div className="modal-overlay" onClick={onClose}>
             <div className="modal-card" onClick={(e) => e.stopPropagation()}>
-                <button className="modal-close-btn" onClick={onClose}>&times;</button>
+                <button className="modal-close-btn" onClick={onClose} disabled={isLoading}>&times;</button>
                 <div className="modal-logo-placeholder">
                     <img src={signup} alt="" />
                 </div>
                 <h3 className="modal-title">Create an account</h3>
 
                 <form className="modal-form" onSubmit={handleSignupSubmit}>
-                    {/* Display validation errors if passwords don't match */}
-                    {error && <div className="error-message" style={{ color: "red", fontSize: "14px", marginBottom: "15px", textAlign: "center" }}>{error}</div>}
+                    {/* Render visual validation errors directly within the modal frame */}
+                    {error && (
+                        <div className="error-message" style={{ color: "#d32f2f", backgroundColor: "#ffebee", padding: "10px", borderRadius: "4px", fontSize: "14px", marginBottom: "15px", textAlign: "center" }}>
+                            {error}
+                        </div>
+                    )}
 
                     <div className="input-group">
                         <label htmlFor="name">Full Name</label>
@@ -65,6 +96,7 @@ function SignupModal({ isOpen, onClose, onSwitchToLogin }) {
                             placeholder="John Doe"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
+                            disabled={isLoading}
                             required
                         />
                     </div>
@@ -77,6 +109,7 @@ function SignupModal({ isOpen, onClose, onSwitchToLogin }) {
                             placeholder="hello@123d.one"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
+                            disabled={isLoading}
                             required
                         />
                     </div>
@@ -90,12 +123,14 @@ function SignupModal({ isOpen, onClose, onSwitchToLogin }) {
                                 placeholder="••••••••"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
+                                disabled={isLoading}
                                 required
                             />
                             <button
                                 type="button"
                                 className="password-toggle-icon"
                                 onClick={() => setShowPassword(!showPassword)}
+                                disabled={isLoading}
                             >
                                 {showPassword ? <IoEyeOutline /> : <IoEyeOffOutline />}
                             </button>
@@ -111,14 +146,15 @@ function SignupModal({ isOpen, onClose, onSwitchToLogin }) {
                                 placeholder="••••••••"
                                 value={confirmPassword}
                                 onChange={(e) => setConfirmPassword(e.target.value)}
+                                disabled={isLoading}
                                 required
                             />
-                            {/* The toggle button affects both password fields simultaneously for better UX */}
                         </div>
                     </div>
 
-                    <button type="submit" className="primary-signin-btn">
-                        <span className="btn-icon">➔</span> Sign Up
+                    {/* Disable submission buttons to prevent accidental duplicate row creation */}
+                    <button type="submit" className="primary-signin-btn" disabled={isLoading}>
+                        <span className="btn-icon">➔</span> {isLoading ? "Creating Account..." : "Sign Up"}
                     </button>
 
                     <div className="divider">or</div>
@@ -127,6 +163,7 @@ function SignupModal({ isOpen, onClose, onSwitchToLogin }) {
                         type="button"
                         className="google-signin-btn"
                         onClick={() => console.log("Google Signup Triggered")}
+                        disabled={isLoading}
                     >
                         <FcGoogle size={20} /> Sign up with Google
                     </button>
@@ -136,7 +173,7 @@ function SignupModal({ isOpen, onClose, onSwitchToLogin }) {
                             Already have an account? {" "}
                             <span
                                 style={{ cursor: "pointer", color: "#0C641B", textDecoration: "underline" }}
-                                onClick={onSwitchToLogin}
+                                onClick={!isLoading ? onSwitchToLogin : null}
                             >
                                 Log in
                             </span>

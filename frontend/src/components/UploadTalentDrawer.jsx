@@ -1,127 +1,6 @@
-// import React, { useState } from "react";
-// import { MoreVertical, X } from "lucide-react";
-// import SuccessModal from "./SuccessModal"; // Import the newly added modal
-// import "./UploadTalentDrawer.css";
+// 
 
-// function UploadTalentDrawer({ onBackToDashboard }) {
-//     const [title, setTitle] = useState("");
-//     const [summary, setSummary] = useState("");
-//     const [category, setCategory] = useState("");
-//     const [contentLink, setContentLink] = useState("");
-    
-//     // Modal visual toggle state
-//     const [isSuccessOpen, setIsSuccessOpen] = useState(false);
 
-//     const handlePublishSubmit = (e) => {
-//         e.preventDefault();
-//         console.log("Publishing entry content:", { title, summary, category, contentLink });
-        
-//         // 🌟 Trigger the success confirmation modal popup instantly
-//         setIsSuccessOpen(true);
-//     };
-
-//     const handleShareAction = () => {
-//         navigator.clipboard.writeText(contentLink || "https://naijacone.com/talent");
-//         alert("Share link copied to clipboard!");
-//     };
-
-//     return (
-//         <>
-//             <div className="upload-talent-container-view">
-//                 {/* Top Bar Action Header Controls */}
-//                 <div className="upload-drawer-header">
-//                     {/* HTML form attribute connects this button to the form id below */}
-//                     <button type="submit" form="talentForm" className="publish-submit-btn">
-//                         Publish
-//                     </button>
-//                     <div className="right-header-utility-group">
-//                         <button type="button" className="header-icon-btn"><MoreVertical size={20} /></button>
-//                         <button type="button" className="header-icon-btn" onClick={onBackToDashboard}><X size={20} /></button>
-//                     </div>
-//                 </div>
-
-//                 {/* Scrollable Body Content Sheet Form */}
-//                 <form id="talentForm" className="upload-drawer-scrollable-form" onSubmit={handlePublishSubmit}>
-//                     <div className="upload-intro-headings">
-//                         <h3>Talent Upload</h3>
-//                         <p>
-//                             A short, evocative title works best, your summary should clearly capture 
-//                             the “big idea” of your talent and what makes it special. Avoid jargon. Use 
-//                             simple language. Add the category to enhance visibility.
-//                         </p>
-//                     </div>
-
-//                     <div className="form-input-stack">
-//                         <label className="input-field-title-label">Title</label>
-//                         <span className="input-hint-subtext">Keep it short and avoid special characters</span>
-//                         <input 
-//                             type="text"
-//                             placeholder="Talent title..."
-//                             value={title}
-//                             onChange={(e) => setTitle(e.target.value)}
-//                             required
-//                         />
-//                     </div>
-
-//                     <div className="form-input-stack">
-//                         <label className="input-field-title-label">Brief Summary</label>
-//                         <span className="input-hint-subtext">Keep it short and avoid special characters</span>
-//                         <input 
-//                             type="text"
-//                             placeholder="Talent summary..."
-//                             value={summary}
-//                             onChange={(e) => setSummary(e.target.value)}
-//                             required
-//                         />
-//                     </div>
-
-//                     <div className="form-input-stack">
-//                         <label className="input-field-title-label">Catagory</label>
-//                         <span className="input-hint-subtext">Select the category of your talent</span>
-//                         <div className="select-dropdown-wrapper">
-//                             <select 
-//                                 value={category} 
-//                                 onChange={(e) => setCategory(e.target.value)}
-//                                 required
-//                             >
-//                                 <option value="" disabled hidden>Select...</option>
-//                                 <option value="Music">Music</option>
-//                                 <option value="Artwork">Artwork</option>
-//                                 <option value="Comedy">Comedy</option>
-//                                 <option value="Football">Football</option>
-//                             </select>
-//                         </div>
-//                     </div>
-
-//                     <div className="form-input-stack">
-//                         <label className="input-field-title-label">Content</label>
-//                         <span className="input-hint-subtext">Add the link to your video or image of your talent</span>
-//                         <input 
-//                             type="url"
-//                             placeholder="Video or image link"
-//                             value={contentLink}
-//                             onChange={(e) => setContentLink(e.target.value)}
-//                             required
-//                         />
-//                     </div>
-//                 </form>
-//             </div>
-
-//             {/* Global Context Success Banner Portal mount point */}
-//             <SuccessModal 
-//                 isOpen={isSuccessOpen}
-//                 onClose={() => {
-//                     setIsSuccessOpen(false);
-//                     onBackToDashboard(); // Return back to core metrics timeline drawer after closing down
-//                 }}
-//                 onViewTalent={() => console.log("Rerouting execution focus to the new item view panel...")}
-//                 onShare={handleShareAction}
-//             />
-//         </>
-//     );
-// }
-
-// export default UploadTalentDrawer;
 
 import React, { useState, useRef } from "react";
 import { MoreVertical, X, UploadCloud, FileVideo, FileImage } from "lucide-react";
@@ -141,21 +20,22 @@ function UploadTalentDrawer({ onBackToDashboard }) {
 
     const fileInputRef = useRef(null);
 
-    // 🎯 CATEGORY MAPPER: Forces the UI short names to match FastAPI's strict Enums
+    // 🌟 FIXED: Maps frontend keys cleanly to match FastAPI's target strict Categories enums
     const getBackendCategoryName = (frontendName) => {
-        const mapping = {
-            "Music": "Music / Songs",
-            "Football": "Football Freestyle",
-            "Comedy": "Comedy Skits",
-            "Artwork": "Artwork (Handmade Only)",
-            "Fashion": "Fashion Showcase",
-            "Film": "My Nigeria Story (Short Film)",
-            "Photo": "Photography",
-            "Logo": "Logo Design"
-        };
-        return mapping[frontendName] || frontendName;
+    const mapping = {
+        "Music": "Music / Songs",
+        "Football": "Football Freestyle",
+        "Comedy": "Comedy Skits",
+        "Artwork": "Artwork (Handmade Only)",
+        "Fashion": "Fashion Showcase",
+        "Film": "My Nigeria Story (Short Film)",
+        "Photo": "Photography",
+        "Logo": "Logo Design"
     };
-
+    
+    // Return the matched backend string, or fall back to the raw name if not found
+    return mapping[frontendName] || frontendName;
+};
     // --- Drag and Drop Logic ---
     const handleDragOver = (e) => {
         e.preventDefault();
@@ -180,7 +60,6 @@ function UploadTalentDrawer({ onBackToDashboard }) {
         }
     };
 
-    // --- Share Utility Function Fix ---
     const handleShareAction = () => {
         if (selectedFile) {
             navigator.clipboard.writeText(selectedFile.name);
@@ -191,7 +70,7 @@ function UploadTalentDrawer({ onBackToDashboard }) {
         }
     };
 
-    // --- Form Submission Submission Pipeline ---
+    // --- Form Submission Pipeline ---
     const handlePublishSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
@@ -204,14 +83,12 @@ function UploadTalentDrawer({ onBackToDashboard }) {
             return;
         }
 
-        // 🎯 VALIDATION 1: Enforce minimum summary length to satisfy backend constraint
         if (summary.trim().length < 10) {
             setErrorMessage("Brief Summary must be at least 10 characters long.");
             setIsSubmitting(false);
             return;
         }
 
-        // 🎯 VALIDATION 2: Ensure an actual file has been chosen
         if (!selectedFile) {
             setErrorMessage("Please drag or select an actual file to upload.");
             setIsSubmitting(false);
@@ -221,13 +98,11 @@ function UploadTalentDrawer({ onBackToDashboard }) {
         try {
             const formData = new FormData();
             
-            // Apply category transform wrapper mapping
+            // Apply the fixed category string transformation
             formData.append("category", getBackendCategoryName(category));
             formData.append("title", title.trim());
             formData.append("description", summary.trim());
             formData.append("materials_used", "None");
-            
-            // 🎯 FIXED: Appends the actual binary object rather than a URL string link
             formData.append("file", selectedFile);
 
             const response = await fetch("http://127.0.0.1:8000/api/v1/talent/uploads", {
@@ -235,19 +110,19 @@ function UploadTalentDrawer({ onBackToDashboard }) {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 },
-                body: formData,
+                body: formData, // Browser automatically configures multipart form hashes here
             });
 
             if (!response.ok) {
-                const errorData = await response.json();
-                const detailMessage = typeof errorData.detail === 'object' 
-                    ? JSON.stringify(errorData.detail) 
-                    : errorData.detail;
+                const errorData = await response.json().catch(() => ({}));
+                const detailMessage = errorData.detail 
+                    ? (typeof errorData.detail === 'object' ? JSON.stringify(errorData.detail) : errorData.detail)
+                    : `Upload failed with status code: ${response.status}`;
                     
-                throw new Error(detailMessage || `Server responded with status: ${response.status}`);
+                throw new Error(detailMessage);
             }
 
-            // Clean form state variables on success validation
+            // Clean layout forms on success validation
             setTitle("");
             setSummary("");
             setCategory("");
@@ -289,7 +164,7 @@ function UploadTalentDrawer({ onBackToDashboard }) {
                     </div>
 
                     {errorMessage && (
-                        <div className="error-message-banner">
+                        <div className="error-message-banner" style={{ color: "red", margin: "10px 0", padding: "10px", backgroundColor: "#ffebee", borderRadius: "4px" }}>
                             {errorMessage}
                         </div>
                     )}
@@ -350,7 +225,6 @@ function UploadTalentDrawer({ onBackToDashboard }) {
                             style={{ display: "none" }}
                             onChange={handleFileChange}
                             accept="video/*,audio/*,image/*"
-                            required
                         />
 
                         <div 
@@ -359,6 +233,7 @@ function UploadTalentDrawer({ onBackToDashboard }) {
                             onDragLeave={handleDragLeave}
                             onDrop={handleDrop}
                             onClick={() => fileInputRef.current.click()}
+                            style={{ cursor: "pointer", border: "2px dashed #ccc", padding: "2px", textAlign: "center" }}
                         >
                             {!selectedFile ? (
                                 <div className="dropzone-empty-state">
@@ -368,7 +243,7 @@ function UploadTalentDrawer({ onBackToDashboard }) {
                                 </div>
                             ) : (
                                 <div className="dropzone-file-state">
-                                    {selectedFile.type.startsWith("video/") ? (
+                                    {selectedFile.type && selectedFile.type.startsWith("video/") ? (
                                         <FileVideo size={40} className="file-type-icon" />
                                     ) : (
                                         <FileImage size={40} className="file-type-icon" />

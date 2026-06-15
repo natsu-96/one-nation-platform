@@ -10,9 +10,10 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.ext.asyncio import create_async_engine
 from sqlalchemy.orm import sessionmaker
 from sqlmodel import SQLModel
+from .auth import settings
 
 
-DB_URL = "sqlite+aiosqlite:///./naija_celebrates.db"
+DB_URL = settings.db_url
 
 is_sqlite = DB_URL.startswith("sqlite")
 connect_args = {"check_same_thread": False} if is_sqlite else {}
